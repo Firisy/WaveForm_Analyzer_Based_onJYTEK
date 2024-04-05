@@ -1,0 +1,85 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{30876A8A-C429-48C7-A2DC-EAEABA6D558C}|test2\\\u6CE2\u5F62\u5904\u7406\u5668.csproj|d:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\test2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{30876A8A-C429-48C7-A2DC-EAEABA6D558C}|test2\\\u6CE2\u5F62\u5904\u7406\u5668.csproj|solutionrelative:test2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30876A8A-C429-48C7-A2DC-EAEABA6D558C}|test2\\\u6CE2\u5F62\u5904\u7406\u5668.csproj|D:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\test2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{30876A8A-C429-48C7-A2DC-EAEABA6D558C}|test2\\\u6CE2\u5F62\u5904\u7406\u5668.csproj|solutionrelative:test2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30876A8A-C429-48C7-A2DC-EAEABA6D558C}|test2\\\u6CE2\u5F62\u5904\u7406\u5668.csproj|D:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\test2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{30876A8A-C429-48C7-A2DC-EAEABA6D558C}|test2\\\u6CE2\u5F62\u5904\u7406\u5668.csproj|solutionrelative:test2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30876A8A-C429-48C7-A2DC-EAEABA6D558C}|test2\\\u6CE2\u5F62\u5904\u7406\u5668.csproj|D:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\test2\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{30876A8A-C429-48C7-A2DC-EAEABA6D558C}|test2\\\u6CE2\u5F62\u5904\u7406\u5668.csproj|solutionrelative:test2\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs [\u8BBE\u8BA1]",
+              "DocumentMoniker": "D:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\test2\\Form1.cs",
+              "RelativeDocumentMoniker": "test2\\Form1.cs",
+              "ToolTip": "D:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\test2\\Form1.cs [\u8BBE\u8BA1]",
+              "RelativeToolTip": "test2\\Form1.cs [\u8BBE\u8BA1]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-23T11:27:03.241Z",
+              "EditorCaption": " [\u8BBE\u8BA1]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "D:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\test2\\Form1.cs",
+              "RelativeDocumentMoniker": "test2\\Form1.cs",
+              "ToolTip": "D:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\test2\\Form1.cs",
+              "RelativeToolTip": "test2\\Form1.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAADgv0gAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T06:00:48.2Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "App.config",
+              "DocumentMoniker": "D:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\test2\\App.config",
+              "RelativeDocumentMoniker": "test2\\App.config",
+              "ToolTip": "D:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\test2\\App.config",
+              "RelativeToolTip": "test2\\App.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvwAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-03-23T10:52:59.814Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\test2\\Program.cs",
+              "RelativeDocumentMoniker": "test2\\Program.cs",
+              "ToolTip": "D:\\\u7535\u7F51\u7EDC\u5206\u6790\\\u5927\u4F5C\u4E1A\u5206\u6790\\test2\\test2\\Program.cs",
+              "RelativeToolTip": "test2\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-23T10:52:57.126Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

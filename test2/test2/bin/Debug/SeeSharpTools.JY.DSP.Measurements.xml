@@ -1,0 +1,1225 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SeeSharpTools.JY.DSP.Measurements</name>
+    </assembly>
+    <members>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.EdgePolarity">
+            <summary>
+            The enum of edge polarity
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.EdgePolarity.Rising">
+            <summary>
+            Rising edge
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.EdgePolarity.Falling">
+            <summary>
+            Falling edge
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis">
+            <summary>
+            用于对信号的抖动分析
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Level">
+            <summary>
+            电平测量
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Level.MeasureStateLevel(System.Double[],SeeSharpTools.JY.DSP.Measurements.StateLevelsSettings)">
+            <summary>
+            <para>Measure the high and low level and amplitude of the input signal.</para>
+            <para>Chinese Simplified: 测量输入信号的高低电平和幅度。</para>
+            </summary>
+            <param name="x">输入信号</param>
+            <param name="settings">状态电平设置</param>
+            <returns>完成测量的状态电平</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Level.MeasureReferenceLevel(SeeSharpTools.JY.DSP.Measurements.StateLevels,SeeSharpTools.JY.DSP.Measurements.ReferenceLevelsSettings)">
+            <summary>
+            <para>Measure the reference level according to the state level.</para>
+            <para>Chinese Simplified: 根据状态电平测量参考电平。</para>
+            </summary>
+            <param name="stateLevels">状态电平输入，可以通过MeasureStateLevels方法获得</param>
+            <param name="settings">参考电平设置，包括高电平、中间电平和低电平，单位为百分比</param>
+            <returns>实际输出的参考电平绝对值</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Level.MeasureReferenceLevel(System.Double[],SeeSharpTools.JY.DSP.Measurements.StateLevelsSettings,SeeSharpTools.JY.DSP.Measurements.ReferenceLevelsSettings)">
+            <summary>
+            <para>Calculate the reference level according to the input signal.</para>
+            <para>Chinese Simplified: 根据输入信号计算参考电平。</para>
+            </summary>
+            <param name="x">输入信号</param>
+            <param name="stateLevelsSettings">状态电平设置</param>
+            <param name="referenceLevelsSettings">参考电平设置</param>
+            <returns>实际输出的参考电平绝对值</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Level.FindTransitions(System.Double[],SeeSharpTools.JY.DSP.Measurements.ReferenceLevels)">
+            <summary>
+            <para>Measure the boundary and direction of each transition in the signal according to the set reference level.</para>
+            <para>Chinese Simplified: 根据设定的参考电平测量信号中每个跃迁的边界和方向。</para>
+            </summary>
+            <param name="x">输入信号</param>
+            <param name="referenceLevels">参考电平</param>
+            <returns>信号中的跃迁信息</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Level.SelectEdge(SeeSharpTools.JY.DSP.Measurements.Transition[],SeeSharpTools.JY.DSP.Measurements.ReferenceLevels,SeeSharpTools.JY.DSP.Measurements.Slope,System.Double[]@,System.Double[]@)">
+            <summary>
+            <para>Select the corresponding edge according to the transition direction.</para>
+            <para>Chinese Simplified: 根据跃迁方向选择对应的边沿。</para>
+            </summary>
+            <param name="transitions">跃迁</param>
+            <param name="referenceLevels">参考电平</param>
+            <param name="slope">跃迁方向</param>
+            <param name="indexes">边沿的索引集合</param>
+            <param name="levels">边沿的幅度集合</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Level.MeasureOvershootUndershoot(System.Double[],SeeSharpTools.JY.DSP.Measurements.Transition[],SeeSharpTools.JY.DSP.Measurements.StateLevels,SeeSharpTools.JY.DSP.Measurements.TransitionMode,SeeSharpTools.JY.DSP.Measurements.LevelUnit,SeeSharpTools.JY.DSP.Measurements.Slope)">
+            <summary>
+            <para>Measure the index and amplitude of overshoot and undershoot.</para>
+            <para>Chinese Simplified: 测量过冲和下冲发生的位置和幅度。</para>
+            </summary>
+            <param name="x">输入信号</param>
+            <param name="transitions">跃迁</param>
+            <param name="stateLevels">状态电平</param>
+            <param name="transitionMode">瞬态的跃迁模式</param>
+            <param name="levelUnit">电平单位</param>
+            <param name="slope">跃迁方向</param>
+            <returns>过冲和下冲测量结果</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Level.MeasureMaxMinVoltage(System.Double[],SeeSharpTools.JY.DSP.Measurements.Transition[],SeeSharpTools.JY.DSP.Measurements.StateLevels,System.Double[]@,System.Double[]@)">
+            <summary>
+            <para>Measure the maximum and minimum voltage at each transition in the signal.</para>
+            <para>Chinese Simplified: 测量信号中每个跃迁处的最大和最小电压。</para>
+            </summary>
+            <param name="x">输入信号</param>
+            <param name="transitions">跃迁</param>
+            <param name="stateLevels">状态电平</param>
+            <param name="maxSequence">最大电压序列</param>
+            <param name="minSequence">最小电压序列</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Level.MeasurePeakToPeakVoltage(System.Double[],SeeSharpTools.JY.DSP.Measurements.LevelCrossings,SeeSharpTools.JY.DSP.Measurements.Slope)">
+            <summary>
+            <para>Measure the peak to peak value of each cycle in the signal.</para>
+            <para>Chinese Simplified: 测量信号中每个周期的峰峰值。</para>
+            </summary>
+            <param name="x">输入序列</param>
+            <param name="levelCrossings">电平穿越位置</param>
+            <param name="slope">跃迁方向</param>
+            <returns>峰峰值电压</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Level.MeasureArea(System.Double[],SeeSharpTools.JY.DSP.Measurements.LevelCrossings,System.Double[]@,System.Double[]@,SeeSharpTools.JY.DSP.Measurements.Slope)">
+            <summary>
+            <para>Measure the area and average value of each cycle of the signal.</para>
+            <para>Chinese Simplified: 测量信号每个周期的面积和平均值。</para>
+            </summary>
+            <param name="x">输入序列</param>
+            <param name="levelCrossings">电平穿越位置</param>
+            <param name="areaSequences">信号中每个周期占据面积</param>
+            <param name="averageSequences">信号中每个周期的平均值</param>
+            <param name="slope">跃迁方向</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Level.MeasureRMSVoltage(System.Double[],SeeSharpTools.JY.DSP.Measurements.LevelCrossings,SeeSharpTools.JY.DSP.Measurements.Slope)">
+            <summary>
+            <para>Measure the voltage RMS of each cycle in the signal.</para>
+            <para>Chinese Simplified: 测量信号中每个周期的电压有效值。</para>
+            </summary>
+            <param name="x">输入序列</param>
+            <param name="levelCrossings">电平穿越位置</param>
+            <param name="slope">跃迁方向</param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Timing">
+            <summary>
+            时间测量
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Timing.FindLevelCrossings(System.Double[],System.Double,SeeSharpTools.JY.DSP.Measurements.Transition[],System.Double)">
+            <summary>
+            <para>Measure the index of crossing point for the specified voltage.</para>
+            <para>Chinese Simplified: 测量指定电压穿越点的位置。</para>
+            </summary>
+            <param name="x">输入信号</param>
+            <param name="dt">采样点的时间间隔，等于采样率的倒数</param>
+            <param name="transitions">跃迁</param>
+            <param name="crossingLevel">穿越点电平</param>
+            <returns>电平穿越位置</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Timing.MeasureRiseTime(SeeSharpTools.JY.DSP.Measurements.Transition[],System.Double)">
+            <summary>
+            <para>Measure the rise time of signal transition.</para>
+            <para>Chinese Simplified: 测量信号跃迁的上升时间</para>
+            </summary>
+            <param name="transitions">跃迁</param>
+            <param name="dt">采样点的时间间隔，等于采样率的倒数</param>
+            <returns>上升时间</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Timing.MeasureFallTime(SeeSharpTools.JY.DSP.Measurements.Transition[],System.Double)">
+            <summary>
+            <para>Measure the fall time of signal transition.</para>
+            <para>Chinese Simplified: 测量信号跃迁的下降时间</para>
+            </summary>
+            <param name="transitions">跃迁</param>
+            <param name="dt">采样点的时间间隔，等于采样率的倒数</param>
+            <returns>下降时间</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Timing.MeasurePeriod(SeeSharpTools.JY.DSP.Measurements.LevelCrossings)">
+            <summary>
+            <para>Measure the period for signal with uniform transition distribution.</para>
+            <para>Chinese Simplified: 对跃迁分布均匀的信号，测量周期</para>
+            </summary>
+            <param name="crossings">电平穿越位置</param>
+            <returns>每个周期的时间，也表示相邻的同一个方向跃迁的时间差</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Timing.MeasureDutyCycle(SeeSharpTools.JY.DSP.Measurements.LevelCrossings,System.Double[]@,System.Double[]@,SeeSharpTools.JY.DSP.Measurements.Slope)">
+            <summary>
+            <para>Measure the duty cycle of the signal.</para>
+            <para>Chinese Simplified: 测量信号的占空比。</para>
+            </summary>
+            <param name="crossings">电平穿越位置</param>
+            <param name="positiveDutyCycleSequence">每个周期高于穿越电平的时间百分比</param>
+            <param name="negativeDutyCycleSequence">每个周期低于穿越电平的时间百分比</param>
+            <param name="slope">跃迁方向</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Timing.MeasurePositiveWidth(SeeSharpTools.JY.DSP.Measurements.LevelCrossings)">
+            <summary>
+            <para>Measure the pulse duration of the rising transition (positive pulse width or high level).</para>
+            <para>Chinese Simplified: 测量上升跃迁（正脉宽或者高电平）的脉冲持续时间。</para>
+            </summary>
+            <param name="crossings">穿越电平位置</param>
+            <returns>从上升高于穿越电平到下降低于穿越电平的时间，单位为秒</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Timing.MeasureNegativeWidth(SeeSharpTools.JY.DSP.Measurements.LevelCrossings)">
+            <summary>
+            <para>Measure the pulse duration of the falling transition (negative pulse width or low level).</para>
+            <para>Chinese Simplified: 测量下降跃迁（负脉宽或者低电平）的脉冲持续时间。</para>
+            </summary>
+            <param name="crossings">穿越电平位置</param>
+            <returns>从下降低于穿越电平到上升高于穿越电平的时间，单位为秒</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Timing.MeasureBurstWidth(System.Double[],System.Double,System.Int32[]@,System.Int32[]@,System.Double,System.Double,System.Double)">
+            <summary>
+            <para>Measure the duration of the burst signal in the input signal.</para>
+            <para>The burst signal starts at a certain edge and passes through a certain threshold level, </para>
+            <para>ends at the next edge and passes through this threshold level again, and lasts for more than the specified time.</para>
+            <para>Chinese Simplified: 测量信号中突发信号的持续时间，突发信号起始于某个边沿穿过某阈值电平，结束于下一个边沿再次穿过此阈值电平，并持续超过最小指定时间。</para>
+            </summary>
+            <param name="x">输入信号</param>
+            <param name="dt">采样点的时间间隔，等于采样率的倒数</param>
+            <param name="startIndexes">突发信号起始位置索引集合</param>
+            <param name="stopIndexes">突发信号结束位置索引集合</param>
+            <param name="upperThreshold">高阈值电平，默认值为2</param>
+            <param name="lowerThreshold">低阈值电平，默认值为-2</param>
+            <param name="minIdleTime">突发信号最短的持续时间</param>
+            <returns>每个突发信号的持续时间，单位为秒</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Timing.MeasureSetupHoldTime(SeeSharpTools.JY.DSP.Measurements.LevelCrossings,SeeSharpTools.JY.DSP.Measurements.LevelCrossings,System.Double[]@,System.Double[]@)">
+            <summary>
+            <para>Measure the establishment time and holding time of the signal.</para>
+            <para>Chinese Simplified: 测量信号的建立时间和保持时间。</para>
+            </summary>
+            <param name="crossingsA">原始信号的穿越电平位置</param>
+            <param name="crossingsB">参考信号（时钟信号）的穿越电平位置</param>
+            <param name="setupSequence">参考信号跃迁前的原始信号建立时间</param>
+            <param name="holdtimeSequence">参考信号跃迁后的原始信号保持时间</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Timing.ChannelSkew(SeeSharpTools.JY.DSP.Measurements.LevelCrossings,SeeSharpTools.JY.DSP.Measurements.LevelCrossings,SeeSharpTools.JY.DSP.Measurements.Slope)">
+            <summary>
+            <para>Measure the time delay (skewness) between two signals.</para>
+            <para>Chinese Simplified: 测量两个信号之间的延时（偏度）。</para>
+            </summary>
+            <param name="crossingsA">原始信号的穿越电平位置</param>
+            <param name="crossingsB">参考信号（时钟信号）的穿越电平位置</param>
+            <param name="slope">信号中的第一个跃迁方向</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Timing.MeasurePhase(SeeSharpTools.JY.DSP.Measurements.LevelCrossings,SeeSharpTools.JY.DSP.Measurements.LevelCrossings,SeeSharpTools.JY.DSP.Utility.PhaseUnit,SeeSharpTools.JY.DSP.Measurements.Slope)">
+            <summary>
+            <para>Measure the phase difference of each cycle between two signals.</para>
+            <para>Chinese Simplified: 测量两个信号每个周期的相位差。</para>
+            </summary>
+            <param name="crossingsA">原始信号的穿越电平位置</param>
+            <param name="crossingsB">参考信号（时钟信号）的穿越电平位置</param>
+            <param name="phaseUnit">相位单位，默认为角度</param>
+            <param name="slope">信号中的第一个跃迁方向</param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.ClockRecovery">
+            <summary>
+            时钟恢复
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.ClockRecovery.MeanClock(SeeSharpTools.JY.DSP.Measurements.LevelCrossings,SeeSharpTools.JY.DSP.Measurements.LevelCrossings@,System.Int16[]@,System.Double)">
+            <summary>
+            <para>Recover the reference clock signal from the input signal.</para>
+            <para>Chinese Simplified: 从输入信号中恢复参考时钟信号。</para> 
+            </summary>
+            <param name="levelCrossings">输入信号的电平穿越位置</param>
+            <param name="refLevelCrossings">参考时钟的电平穿越位置</param>
+            <param name="bitCount">参考时钟的数据位序列</param>
+            <param name="expectedUnitInterval">预期的参考时钟单位间隔，默认为-1</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.ClockRecovery.ConvertBitCountToBitstream(System.Int16[],SeeSharpTools.JY.DSP.Measurements.Slope)">
+            <summary>
+            <para>Convert the bit number information of each transition in the signal into a bit stream sequence per unit time.</para>
+            <para>Chinese Simplified: 把信号中每个跃迁的比特数量信息转换为每个单位时间的比特流序列。</para> 
+            </summary>
+            <param name="bitCount">接连跃迁中的比特数量数组，通过ClockRecovery方法获取</param>
+            <param name="slope">跃迁方向</param>
+            <returns>信号在每个单位间隔内的高低电平序列，由0和1组成</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.ClockRecovery.CreateReferenceBitWaveform(System.Double[],System.Double,SeeSharpTools.JY.DSP.Measurements.LevelCrossings)">
+            <summary>
+            <para>Create an ideal reference clock waveform synchronized with the input signal.</para>
+            <para>Chinese Simplified: 创建与输入信号同步的理想的参考时钟波形。</para>
+            </summary>
+            <param name="x">原始输入信号</param>
+            <param name="dt">采样点的时间间隔，等于采样率的倒数</param>
+            <param name="levelCrossings">参考时钟的电平穿越位置</param>
+            <returns>参考时钟信号序列，由0和1组成</returns>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Jitter">
+            <summary>
+            抖动测量
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Jitter.MeasureTimeIntervalError(SeeSharpTools.JY.DSP.Measurements.LevelCrossings,SeeSharpTools.JY.DSP.Measurements.LevelCrossings,System.Double[]@,System.Double[]@,System.Int16[])">
+            <summary>
+            <para>Measure the time difference between the level crossing position of the original signal and the level crossing position of the corresponding reference clock signal.</para>
+            <para>Chinese Simplified: 测量原始信号的电平穿越位置和对应的参考时钟信号的电平穿越位置的时间差。</para>
+            </summary>
+            <param name="levelCrossings">原始信号的电平穿越</param>
+            <param name="refLevelCrossings">参考时钟信号信号的电平穿越</param>
+            <param name="TIESequence">时间间隔误差序列</param>
+            <param name="TIEIndexes">测量误差位置的索引集合</param>
+            <param name="bitCount">接连跃迁中的比特数量数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Jitter.MeasurePeriodJitter(SeeSharpTools.JY.DSP.Measurements.LevelCrossings,SeeSharpTools.JY.DSP.Measurements.LevelCrossings,System.Double[]@,System.Double[]@)">
+            <summary>
+            <para>Measure the difference between each cycle of the original signal and the corresponding reference clock signal.</para>
+            <para>Chinese Simplified: 测量原始信号和对应参考时钟信号的每个周期的差值。</para>
+            </summary>
+            <param name="levelCrossings">原始信号的穿越电平位置</param>
+            <param name="refLevelCrossings">参考时钟信号信号的电平穿越</param>
+            <param name="jitterSequences">原始信号和参考时钟信号每个周期的时间误差</param>
+            <param name="jitterIndexes">测量误差位置的索引集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Jitter.MeasuereDutyCycleDistortion(SeeSharpTools.JY.DSP.Measurements.LevelCrossings,System.Double@,System.Double@,SeeSharpTools.JY.DSP.Measurements.Slope)">
+            <summary>
+            <para>Measure signal the duty cycle distortion that represents the average difference between the positive and negative pulse widths of the signal.</para>
+            <para>Chinese Simplified: 测量信号的占空比失真，表示信号正负脉宽的平均差值。</para>
+            </summary>
+            <param name="levelCrossings">原始信号的穿越电平位置</param>
+            <param name="DCDTime">正负脉宽持续时间的平均差值</param>
+            <param name="DCDPercentage">平均占空比</param>
+             <param name="slope">跃迁方向</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Jitter.MeasureCycleToCycle(System.Double[])">
+            <summary>
+            <para>Measure the difference between adjacent elements of the sequence.</para>
+            <para>Chinese Simplified: 计算序列相邻元素的差值</para>
+            </summary>
+            <param name="sequence">输入序列</param>
+            <returns>差值</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.Jitter.MeasurePhaseNoise(System.Double[],System.Double[],System.Double,System.Double,System.Double,System.Double@,System.Double[]@,System.Double@)">
+            <summary>
+            <para>Measure the signal phase noise of the jitter that is the sum of RMS of adjacent frequency components in the frequency domain.</para>
+            <para>Chinese Simplified: 测量抖动信号的相位噪声，也就是频域中相邻频率分量的RMS之和</para>
+            </summary>
+            <param name="jitterSequence">抖动测量结果，由</param>
+            <param name="jitterIndexes"></param>
+            <param name="dt">时间间隔，即采样率的倒数</param>
+            <param name="startFreq">计算相位噪声的开始频率</param>
+            <param name="stopFreq">计算相位噪声的结束频率</param>
+            <param name="phaseNoise">指定频段内的相位噪声，单位为s rms</param>
+            <param name="phaseJitterSpectrum">相位噪声频谱，单位为dBc/Hz</param>
+            <param name="df">频率分辨率</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.JitterAnalysis.ArrayMax``1(``0[])">
+            <summary>
+            返回数组中最大值所在的索引
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="x"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.StateLevelsSettings">
+            <summary>
+            状态电平设置
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.StateLevelsSettings.#ctor">
+            <summary>
+            构造函数，设置默认参数
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.StateLevelsSettings.Method">
+            <summary>
+            计算方式，默认值为直方图
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.StateLevelsSettings.HistogramSize">
+            <summary>
+            直方图中bin的数量，默认值为256，当Method为Peak时会被忽略
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.StateLevelsSettings.PercentLevel">
+            <summary>
+            指定上下限的分界百分比，默认值为0.45，不能大于0.5，当Method为Peak时会被忽略
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.StateLevels">
+            <summary>
+            状态电平
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.StateLevels.Amplitude">
+            <summary>
+            幅度
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.StateLevels.HighStateLevel">
+            <summary>
+            高电平
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.StateLevels.LowStateLevel">
+            <summary>
+            低电平
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.ReferenceLevelsSettings">
+            <summary>
+            参考电平设置
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.ReferenceLevelsSettings.#ctor">
+            <summary>
+            构造函数，设置默认参数
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.ReferenceLevelsSettings.HighRefLevel">
+            <summary>
+            高参考电平，默认为90%
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.ReferenceLevelsSettings.LowRefLevel">
+            <summary>
+            低参考电平，默认为10%
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.ReferenceLevelsSettings.MidRefLevel">
+            <summary>
+            中间参考电平，默认为50%
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.ReferenceLevelsSettings.LevelUnit">
+            <summary>
+            参考电平单位，默认为百分比
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.ReferenceLevels">
+            <summary>
+            参考电平
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.ReferenceLevels.HighRefLevel">
+            <summary>
+            高参考电平
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.ReferenceLevels.MidRefLevel">
+            <summary>
+            中间参考电平
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.ReferenceLevels.LowRefLevel">
+            <summary>
+            低参考电平
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.Transition">
+            <summary>
+            跃迁的边界和方向
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.Transition.StartIndex">
+            <summary>
+            跃迁开始处穿过高参考电平或者低参考电平的索引位置
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.Transition.EndIndex">
+            <summary>
+            跃迁结束处穿过高参考电平或者低参考电平的索引位置
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.Transition.Slope">
+            <summary>
+            跃迁的方向
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.LevelCrossings">
+            <summary>
+            电平穿越点位置
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.LevelCrossings.Indexes">
+            <summary>
+            穿越点电平位置的索引集合
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.LevelCrossings.timeInterval">
+            <summary>
+            信号的时间间隔
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.LevelCrossings.Slope">
+            <summary>
+            第一个跃迁位置的方向
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.LevelCrossings.CrossingLevel">
+            <summary>
+            穿越点电平
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.OvershootUndershoot">
+            <summary>
+            过冲和下冲的测量结果
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.OvershootUndershoot.OvershootSequence">
+            <summary>
+            过冲序列，大小等于过冲量占幅度的百分比
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.OvershootUndershoot.OvershootIndexes">
+            <summary>
+            过冲位置的索引
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.OvershootUndershoot.UndershootSequence">
+            <summary>
+            下冲序列，大小等于下冲量占幅度的百分比
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.OvershootUndershoot.UndershootIndexes">
+            <summary>
+            下冲位置的索引
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.ComputeMethod">
+            <summary>
+            状态电平的计算方法
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.ComputeMethod.AutoSelect">
+            <summary>
+            自动选择
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.ComputeMethod.Peak">
+            <summary>
+            峰值
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.ComputeMethod.Histogram">
+            <summary>
+            直方图
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.LevelUnit">
+            <summary>
+            电平单位
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.LevelUnit.Absolute">
+            <summary>
+            绝对值
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.LevelUnit.Percent">
+            <summary>
+            百分比
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.Slope">
+            <summary>
+            跃迁方向
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.Slope.RisingEdge">
+            <summary>
+            上升沿
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.Slope.FallingEdge">
+            <summary>
+            下降沿
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.TransitionMode">
+            <summary>
+            瞬态的跃迁模式
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.TransitionMode.PostTransition">
+            <summary>
+            后瞬态，即跃迁发生后
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.TransitionMode.PreTransition">
+            <summary>
+            前瞬态，跃迁发生前
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.MeasurementInfo">
+            <summary>
+            The measurement information
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.MeasurementInfo.StartTime">
+            <summary>
+            The start time of cycle
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.MeasurementInfo.EndTime">
+            <summary>
+            The end time of cycle
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.MeasurementInfo.PulseReferenceLevel">
+            <summary>
+            The pulse reference level of measurement
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting.Method">
+            <summary>
+            Method to computes the high and low state levels of the waveform
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting.HistogramSize">
+            <summary>
+             The number of bins in the histogram uses to determine the high and low state levels of the waveform. Ignored for the peak method. 
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.HighLowStateMethod">
+            <summary>
+             The method used to determine the high and low state levels of a waveform. 
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.HighLowStateMethod.Auto">
+            <summary>
+            Determines whether the histogram bins that correspond to the high and low state levels each have over 5% of the total hits. 
+            <para>If so, returns those results. </para>
+            <para>Otherwise, uses the peak method. </para>
+            <para>This ensures a reasonable answer for either a square wave (ignoring the overshoot and undershoot) or a triangle wave (where a histogram fails).</para>
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.HighLowStateMethod.Peak">
+            <summary>
+            Searches the entire waveform for its maximum and minimum levels.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.HighLowStateMethod.Histogram">
+            <summary>
+            Returns the levels of the histogram bins with the maximum number of hits in the upper and lower regions of the waveform. The upper and lower regions of the waveform include the upper and lower 40%, respectively, of the peak-to-peak range of the waveform.
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.PeriodAnalysisResult">
+            <summary>
+            The result of period analysis
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.PeriodAnalysisResult.Count">
+            <summary>
+            The total count of period
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.PeriodAnalysisResult.Minimum">
+            <summary>
+            The minimum value of period
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.PeriodAnalysisResult.Maximum">
+            <summary>
+            The maximum value of period
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.PeriodAnalysisResult.Average">
+            <summary>
+            The average value of period
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.PulseMeasurementInfo">
+            <summary>
+            The pulse measurement information
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.PulseMeasurementInfo.PulseCenter">
+            <summary>
+            The time of pulse center
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.PulseMeasurementInfo.PulseReferenceLevel">
+            <summary>
+            The reference level of pulse measurement
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.PulsePolarity">
+            <summary>
+            polarity defines a pulse as high (default) or low.
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.PulsePolarity.High">
+            <summary>
+             A high pulse consists of the interval between a rising mid ref level crossing and the next falling mid ref level crossing. 
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.PulsePolarity.Low">
+            <summary>
+             A low pulse consists of the interval between a falling mid ref level crossing and the next rising mid ref level crossing. 
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel">
+            <summary>
+            The pulse reference level information
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel.High">
+            <summary>
+            The high reference level
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel.Low">
+            <summary>
+            The high reference level
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel.Middle">
+            <summary>
+            The middle reference level
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel.Unit">
+            <summary>
+            The unit of pulse reference level
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel.PercentageLevelSetting">
+            <summary>
+            The method used to determine the high and low state levels of a waveform. If you select percent ref units, percent level settings determines the reference levels. Otherwise, ignored. 
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.PulseReferenceUnit">
+            <summary>
+            The enum for unit of pulse reference level
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.PulseReferenceUnit.Percentage">
+            <summary>
+            The pulse reference level is in percentage
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Measurements.PulseReferenceUnit.Absolute">
+            <summary>
+            The pulse reference level is in absolute value
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements">
+            <summary>
+            <para>Squarewave measurements class</para>
+            <para>Chinese Simplified：方波测量类</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements.AmplitudeLevelAnalysis(System.Double[][],SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting,System.Double[]@,System.Double[]@,System.Double[]@)">
+            <summary>
+            <para>According to the setting of high and low levels, analyze the amplitude and the level of high/low levels of multiple waveform.</para>
+            <para>Chinese Simplified：根据高低电平的设置，分析多个波形的幅度，高低电平等级。</para>
+            </summary>
+            <param name="waveforms">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="setting">
+            <para>The input setting</para>
+            <para>Chinese Simplified：输入配置</para>
+            </param>
+            <param name="amplitude">
+            <para>Amplitude</para>
+            <para>Chinese Simplified：幅值</para>
+            </param>
+            <param name="highLevel">
+            <para>High level</para>
+            <para>Chinese Simplified：高电平</para>
+            </param>
+            <param name="lowLevel">
+            <para>Low level</para>
+            <para>Chinese Simplified：低电平
+            </para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements.AmplitudeLevelAnalysis(System.Double[],SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting,System.Double@,System.Double@,System.Double@)">
+            <summary>
+            <para>According to the setting of high and low levels, analyze the amplitude and the level of high/low levels of a single waveform.</para>
+            <para>Chinese Simplified：根据高低电平的设置，分析单个波形的幅度，高低电平等级。</para>
+            </summary>
+            <param name="waveform">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="setting">
+            <para>The input setting</para>
+            <para>Chinese Simplified：输入配置</para>
+            </param>
+            <param name="amplitude">
+            <para>Amplitude</para>
+            <para>Chinese Simplified：幅值</para>
+            </param>
+            <param name="highLevel">
+            <para>High level</para>
+            <para>Chinese Simplified：高电平</para>
+            </param>
+            <param name="lowLevel">
+            <para>Low level</para>
+            <para>Chinese Simplified：低电平
+            </para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements.PeriodAnalysis(System.Double[][],System.Double,SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting,SeeSharpTools.JY.DSP.Measurements.PulsePolarity,SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel,SeeSharpTools.JY.DSP.Measurements.PeriodAnalysisResult[]@,SeeSharpTools.JY.DSP.Measurements.PeriodAnalysisResult[]@,SeeSharpTools.JY.DSP.Measurements.PeriodAnalysisResult[]@,SeeSharpTools.JY.DSP.Measurements.MeasurementInfo[]@)">
+            <summary>
+            <para>Analyze the period, duty cycle and pulse width of multiple waveform according to the settings of high and low level, polarity and reference level.</para>
+            <para>Chinese Simplified：根据高低电平，极性和参考电平设置，分析单个波形的周期，占空比，脉宽。</para>
+            </summary>
+            <param name="waveforms">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="dt">
+            <para>The sampling interval of waveform</para>
+            <para>Chinese Simplified：波形采样间隔</para>
+            </param>
+            <param name="percentageLevelSetting">
+            <para>The level setting for percentage reference level</para>
+            <para>Chinese Simplified：百分比参考电平配置</para>
+            </param>
+            <param name="polarity">
+            <para>Pulse polarity</para>
+            <para>Chinese Simplified：脉冲极性</para>
+            </param>
+            <param name="refLevel">
+            <para>Reference level setting</para>
+            <para>Chinese Simplified：参考电平配置</para>
+            </param>
+            <param name="periodResults">
+            <para>Results of period analysis</para>
+            <para>Chinese Simplified：周期分析结果</para>
+            </param>
+            <param name="dutyCycleResults">
+            <para>Results of duty cycle analysis</para>
+            <para>Chinese Simplified：占空比分析结果</para>
+            </param>
+            <param name="pulseResults">
+            <para>Results of pulse analysis</para>
+            <para>Chinese Simplified：脉冲分析结果</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements.PeriodAnalysis(System.Double[],System.Double,SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting,SeeSharpTools.JY.DSP.Measurements.PulsePolarity,SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel,SeeSharpTools.JY.DSP.Measurements.PeriodAnalysisResult@,SeeSharpTools.JY.DSP.Measurements.PeriodAnalysisResult@,SeeSharpTools.JY.DSP.Measurements.PeriodAnalysisResult@,SeeSharpTools.JY.DSP.Measurements.MeasurementInfo@)">
+            <summary>
+            <para>Analyze the period, duty cycle and pulse width of a single waveform according to the settings of high and low level, polarity and reference level.</para>
+            <para>Chinese Simplified：根据高低电平，极性和参考电平设置，分析单个波形的周期，占空比，脉宽。</para>
+            </summary>
+            <param name="waveform">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="dt">
+            <para>The sample interval in second of input waveform</para>
+            <para>Chinese Simplified：输入波形的采样间隔</para>
+            </param>
+            <param name="percentageLevelSetting">
+            <para>The level setting for percentage reference level</para>
+            <para>Chinese Simplified：百分比参考电平配置</para>
+            </param>
+            <param name="polarity">
+            <para>Pulse polarity</para>
+            <para>Chinese Simplified：脉冲极性</para>
+            </param>
+            <param name="refLevel">
+            <para>Reference level setting</para>
+            <para>Chinese Simplified：参考电平配置</para>
+            </param>
+            <param name="periodResult">
+            <para>Results of period analysis</para>
+            <para>Chinese Simplified：周期分析结果</para>
+            </param>
+            <param name="dutyCycleResult">
+            <para>Results of duty cycle analysis</para>
+            <para>Chinese Simplified：占空比分析结果</para>
+            </param>
+            <param name="pulseResult">
+            <para>Results of pulse analysis</para>
+            <para>Chinese Simplified：脉冲分析结果</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements.PulseMeasurement(System.Double[][],System.Double,SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting,SeeSharpTools.JY.DSP.Measurements.PulsePolarity,SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel,System.Int32,System.Double[]@,System.Double[]@,System.Double[]@,SeeSharpTools.JY.DSP.Measurements.PulseMeasurementInfo[]@)">
+            <summary>
+            <para>Measure the period, pulse width and duty cycle of the specified pulse of each waveform according to the settings of high and low level, polarity and reference level.</para>
+            <para>Chinese Simplified：根据高低电平，极性和参考电平设置，测量每个波形指定序号脉冲的周期，脉宽和占空比。</para>
+            </summary>
+            <param name="waveforms">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="dt">
+            <para>The sample interval in second of input waveform</para>
+            <para>Chinese Simplified：输入波形的采样间隔</para>
+            </param>
+            <param name="percentageLevelSetting">
+            <para>The level setting for percentage reference level</para>
+            <para>Chinese Simplified：百分比参考电平配置</para>
+            </param>
+            <param name="polarity">
+            <para>The input polarity</para>
+            <para>Chinese Simplified：要测量的波形极性</para>
+            </param>
+            <param name="refLevel">
+            <para>The reference level setting</para>
+            <para>Chinese Simplified：参考电平设置</para>
+            </param>
+            <param name="pulseNumber">
+            <para>The pulse number specifies which pulse of polarity, high or low, to be measured.(1-based) </para>
+            <para>Chinese Simplified：要测量的脉冲的序号（从1开始）</para>
+            </param>
+            <param name="periods">
+            <para>The time between adjacent middle ref level crossings in the same direction in seconds. </para>
+            <para>Chinese Simplified：两个相邻的中间参考电平的时间（单位秒）</para>
+            </param>
+            <param name="pulseDurations">
+            <para>The pulse width.</para>
+            <para>Chinese Simplified：脉宽</para>
+            </param>
+            <param name="dutyCycles">
+            <para>The duty cycle</para>
+            <para>Chinese Simplified：占空比</para>
+            </param>
+            <param name="measurementInfos">
+            <para>The pulse-center time of the selected pulse and the absolute reference levels  uses to define the measurement cycle. </para>
+            <para>Chinese Simplified：测量信息输出</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements.PulseMeasurement(System.Double[],System.Double,SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting,SeeSharpTools.JY.DSP.Measurements.PulsePolarity,SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel,System.Int32,System.Double@,System.Double@,System.Double@,SeeSharpTools.JY.DSP.Measurements.PulseMeasurementInfo@)">
+            <summary>
+            <para>Measure the period, pulse width and duty cycle of the specified pulse of waveform according to the settings of high and low level, polarity and reference level.</para>
+            <para>Chinese Simplified：根据高低电平，极性和参考电平设置，测量波形指定序号脉冲的周期，脉宽和占空比。</para>
+            </summary>
+            <param name="waveform">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="dt">
+            <para>The sample interval in second of input waveform</para>
+            <para>Chinese Simplified：输入波形的采样间隔</para>
+            </param>
+            <param name="percentageLevelSetting">
+            <para>The level setting for percentage reference level</para>
+            <para>Chinese Simplified：百分比参考电平配置</para>
+            </param>
+            <param name="polarity">
+            <para>The input polarity</para>
+            <para>Chinese Simplified：要测量的波形极性</para>
+            </param>
+            <param name="refLevel">
+            <para>The reference level setting</para>
+            <para>Chinese Simplified：参考电平设置</para>
+            </param>
+            <param name="pulseNumber">
+            <para>The pulse number specifies which pulse of polarity, high or low, to be measured.(1-based) </para>
+            <para>Chinese Simplified：要测量的脉冲的序号（从1开始）</para>
+            </param>
+            <param name="period">
+            <para>The time between adjacent middle ref level crossings in the same direction in seconds. </para>
+            <para>Chinese Simplified：两个相邻的中间参考电平的时间（单位秒）</para>
+            </param>
+            <param name="pulseDuration">
+            <para>The pulse width.</para>
+            <para>Chinese Simplified：脉宽</para>
+            </param>
+            <param name="dutyCycle">
+            <para>The duty cycle</para>
+            <para>Chinese Simplified：占空比</para>
+            </param>
+            <param name="measurementInfo">
+            <para>The pulse-center time of the selected pulse and the absolute reference levels  uses to define the measurement cycle. </para>
+            <para>Chinese Simplified：测量信息输出</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements.CycleRmsMeanAnalysis(System.Double[][],System.Double,SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting,SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel,System.Int32,System.Double[]@,System.Double[]@,SeeSharpTools.JY.DSP.Measurements.MeasurementInfo[]@)">
+            <summary>
+            <para>Measure the RMS and mean value of the specified period of each waveform according to the high and low level, polarity and reference level settings.</para>
+            <para>Chinese Simplified：根据高低电平，极性和参考电平设置，测量每个波形指定周期的RMS和均值</para>
+            </summary>
+            <param name="waveforms">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="dt">
+            <para>The sample interval in second of input waveform</para>
+            <para>Chinese Simplified：输入波形的采样间隔</para>
+            </param>
+            <param name="percentageLevelSetting">
+            <para>The level setting for percentage reference level</para>
+            <para>Chinese Simplified：百分比参考电平配置</para>
+            </param>
+            <param name="refLevel">
+            <para>The reference level setting</para>
+            <para>Chinese Simplified：参考电平设置</para>
+            </param>
+            <param name="cycleNumber">
+            <para>The cycle number specifies which cycle be measured.(1-based) </para>
+            <para>Chinese Simplified：要测量的周期的序号（从1开始）</para>
+            </param>
+            <param name="rmsResults">
+            <para>The cycle RMS results for each waveform. </para>
+            <para>Chinese Simplified：每个波形对应的RMS结果</para>
+            </param>
+            <param name="meanResults">
+            <para>The cycle mean results for each waveform. </para>
+            <para>Chinese Simplified：每个波形对应的Mean结果</para>
+            </param>
+            <param name="measurementInfos">
+            <para>The pulse-center time of the selected pulse and the absolute reference levels uses to define the measurement cycle. </para>
+            <para>Chinese Simplified：测量信息输出</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements.CycleRmsMeanAnalysis(System.Double[][],System.Double,SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting,SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel,System.Double[][]@,System.Double[][]@,SeeSharpTools.JY.DSP.Measurements.MeasurementInfo[][]@)">
+            <summary>
+            <para>Measure the RMS and mean value of all period for each waveform according to the high and low level, polarity and reference level settings.</para>
+            <para>Chinese Simplified：根据高低电平，极性和参考电平设置，测量每个波形所有周期的RMS和均值</para>
+            </summary>
+            <param name="waveforms">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="dt">
+            <para>The sample interval in second of input waveform</para>
+            <para>Chinese Simplified：输入波形的采样间隔</para>
+            </param>
+            <param name="percentageLevelSetting">
+            <para>The level setting for percentage reference level</para>
+            <para>Chinese Simplified：百分比参考电平配置</para>
+            </param>
+            <param name="refLevel">
+            <para>The reference level setting</para>
+            <para>Chinese Simplified：参考电平设置</para>
+            </param>
+            <param name="rmsResults">
+            <para>The cycle RMS results every cycle for each waveform. </para>
+            <para>Chinese Simplified：每个波形对应的每个周期的RMS结果</para>
+            </param>
+            <param name="meanResults">
+            <para>The cycle mean results of every cycle for each waveform. </para>
+            <para>Chinese Simplified：每个波形对应的每个周期的Mean结果</para>
+            </param>
+            <param name="measurementInfos">
+            <para>The pulse-center time of the selected pulse and the absolute reference levels uses to define the measurement cycle. </para>
+            <para>Chinese Simplified：测量信息输出</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements.CycleRmsMeanAnalysis(System.Double[],System.Double,SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting,SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel,System.Double[]@,System.Double[]@,SeeSharpTools.JY.DSP.Measurements.MeasurementInfo[]@)">
+            <summary>
+            <para>Measure the RMS and mean value of all period according to the high and low level, polarity and reference level settings.</para>
+            <para>Chinese Simplified：根据高低电平，极性和参考电平设置，测量波形所有周期的RMS和均值</para>
+            </summary>
+            <param name="waveform">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="dt">
+            <para>The sample interval in second of input waveform</para>
+            <para>Chinese Simplified：输入波形的采样间隔</para>
+            </param>
+            <param name="percentageLevelSetting">
+            <para>The level setting for percentage reference level</para>
+            <para>Chinese Simplified：百分比参考电平配置</para>
+            </param>
+            <param name="refLevel">
+            <para>The reference level setting</para>
+            <para>Chinese Simplified：参考电平设置</para>
+            </param>
+            <param name="rmsResults">
+            <para>The cycle RMS results for each cycle. </para>
+            <para>Chinese Simplified：每个周期的RMS结果</para>
+            </param>
+            <param name="meanResults">
+            <para>The cycle mean results for each cycle. </para>
+            <para>Chinese Simplified：每个周期的Mean结果</para>
+            </param>
+            <param name="measurementInfos">
+            <para>The pulse-center time of the selected pulse and the absolute reference levels uses to define the measurement cycle. </para>
+            <para>Chinese Simplified：测量信息输出</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements.CycleRmsMeanAnalysis(System.Double[],System.Double,SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting,SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel,System.Int32,System.Double@,System.Double@,SeeSharpTools.JY.DSP.Measurements.MeasurementInfo@)">
+            <summary>
+            <para>Measure the RMS and mean value of specified period according to the high and low level, polarity and reference level settings.</para>
+            <para>Chinese Simplified：根据高低电平，极性和参考电平设置，测量波形指定周期的RMS和均值</para>
+            </summary>
+            <param name="waveform">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="dt">
+            <para>The sample interval in second of input waveform</para>
+            <para>Chinese Simplified：输入波形的采样间隔</para>
+            </param>
+            <param name="percentageLevelSetting">
+            <para>The level setting for percentage reference level</para>
+            <para>Chinese Simplified：百分比参考电平配置</para>
+            </param>
+            <param name="refLevel">
+            <para>The reference level setting</para>
+            <para>Chinese Simplified：参考电平设置</para>
+            </param>
+            <param name="cycleNumber">
+            <para>The cycle number specifies which cycle be measured.(1-based) </para>
+            <para>Chinese Simplified：要测量的周期的序号（从1开始）</para>
+            </param>
+            <param name="rmsResult">
+            <para>The cycle RMS results for each waveform. </para>
+            <para>Chinese Simplified：RMS结果</para>
+            </param>
+            <param name="meanResult">
+            <para>The cycle mean results for each waveform. </para>
+            <para>Chinese Simplified：Mean结果</para>
+            </param>
+            <param name="measurementInfo">
+            <para>The pulse-center time of the selected pulse and the absolute reference levels uses to define the measurement cycle. </para>
+            <para>Chinese Simplified：测量信息输出</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements.TransitionMeasurement(System.Double[][],System.Double,SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting,SeeSharpTools.JY.DSP.Measurements.EdgePolarity,SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel,System.Int32,System.Double[]@,System.Double[]@,SeeSharpTools.JY.DSP.Measurements.TransitionInfo[]@,SeeSharpTools.JY.DSP.Measurements.TransitionInfo[]@,SeeSharpTools.JY.DSP.Measurements.MeasurementInfo[]@)">
+            <summary>
+            <para>According to the high and low level, polarity and reference level settings, measure the slope , rise and fall time and other transition information of the specified edge for each waveform.</para>
+            <para>Chinese Simplified：根据高低电平，极性和参考电平设置，测量每个波形指定边沿的斜率，上升、下降时间等信息。</para>
+            </summary>
+            <param name="waveforms">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="dt">
+            <para>The sample interval in second of input waveform</para>
+            <para>Chinese Simplified：输入波形的采样间隔</para>
+            </param>
+            <param name="percentageLevelSetting">
+            <para>The level setting for percentage reference level</para>
+            <para>Chinese Simplified：百分比参考电平配置</para>
+            </param>
+            <param name="polarity">
+            <para>The polarity to be measured</para>
+            <para>Chinese Simplified：待测量的边沿类型</para>
+            </param>
+            <param name="refLevel">
+            <para>The reference level setting</para>
+            <para>Chinese Simplified：参考电平设置</para>
+            </param>
+            <param name="edgeNumber">
+            <para>The edge number to be measured</para>
+            <para>Chinese Simplified：待测量的边沿编号</para>
+            </param>
+            <param name="slopes">
+            <para>The slopes. </para>
+            <para>Chinese Simplified：每个边沿对应的斜率结果</para>
+            </param>
+            <param name="transitionDurations">
+            <para>The durations of each transition. </para>
+            <para>Chinese Simplified：每个边沿的上升/下降时间</para>
+            </param>
+            <param name="preTransitionInfos">
+            <para>The pre-transition info. </para>
+            <para>Chinese Simplified：预转换信息</para>
+            </param>
+            <param name="posTransitionInfos">
+            <para>The pre-transition info. </para>
+            <para>Chinese Simplified：后转换信息</para>
+            </param>
+            <param name="measurementInfos">
+            <para>The pulse-center time of the selected pulse and the absolute reference levels uses to define the measurement cycle. </para>
+            <para>Chinese Simplified：测量信息输出</para>
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Measurements.SquarewaveMeasurements.TransitionMeasurement(System.Double[],System.Double,SeeSharpTools.JY.DSP.Measurements.HighLowStateSetting,SeeSharpTools.JY.DSP.Measurements.EdgePolarity,SeeSharpTools.JY.DSP.Measurements.PulseReferenceLevel,System.Int32,System.Double@,System.Double@,SeeSharpTools.JY.DSP.Measurements.TransitionInfo@,SeeSharpTools.JY.DSP.Measurements.TransitionInfo@,SeeSharpTools.JY.DSP.Measurements.MeasurementInfo@)">
+            <summary>
+            <para>According to the high and low level, polarity and reference level settings, measure the slope , rise and fall time and other transition information of the specified edge.</para>
+            <para>Chinese Simplified：根据高低电平，极性和参考电平设置，测量波形指定边沿的斜率，上升、下降时间等信息。</para>
+            </summary>
+            <param name="waveform">
+            <para>The input waveform</para>
+            <para>Chinese Simplified：输入波形</para>
+            </param>
+            <param name="dt">
+            <para>The sample interval in second of input waveform</para>
+            <para>Chinese Simplified：输入波形的采样间隔</para>
+            </param>
+            <param name="percentageLevelSetting">
+            <para>The level setting for percentage reference level</para>
+            <para>Chinese Simplified：百分比参考电平配置</para>
+            </param>
+            <param name="polarity">
+            <para>The polarity to be measured</para>
+            <para>Chinese Simplified：待测量的边沿类型</para>
+            </param>
+            <param name="refLevel">
+            <para>The reference level setting</para>
+            <para>Chinese Simplified：参考电平设置</para>
+            </param>
+            <param name="edgeNumber">
+            <para>The edge number to be measured</para>
+            <para>Chinese Simplified：待测量的边沿编号</para>
+            </param>
+            <param name="slope">
+            <para>The slopes. </para>
+            <para>Chinese Simplified：边沿对应的斜率结果</para>
+            </param>
+            <param name="transitionDuration">
+            <para>The durations of transition. </para>
+            <para>Chinese Simplified：边沿的上升/下降时间</para>
+            </param>
+            <param name="preTransitionInfo">
+            <para>The pre-transition info. </para>
+            <para>Chinese Simplified：预转换信息</para>
+            </param>
+            <param name="posTransitionInfo">
+            <para>The pre-transition info. </para>
+            <para>Chinese Simplified：后转换信息</para>
+            </param>
+            <param name="measurementInfo">
+            <para>The pulse-center time of the selected pulse and the absolute reference levels uses to define the measurement cycle.</para>
+            <para>Chinese Simplified：测量信息输出</para>
+            </param>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Measurements.TransitionInfo">
+            <summary>
+            The transition info
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.TransitionInfo.Undershoot">
+            <summary>
+            The under shoot
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Measurements.TransitionInfo.Overshoot">
+            <summary>
+            The over shoot
+            </summary>
+        </member>
+    </members>
+</doc>

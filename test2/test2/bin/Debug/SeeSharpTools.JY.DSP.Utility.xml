@@ -1,0 +1,990 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SeeSharpTools.JY.DSP.Utility</name>
+    </assembly>
+    <members>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.SignalOperation">
+            <summary>
+            信号操作类
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.SignalOperation.Filtering">
+            <summary>
+            信号滤波类
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Filtering.MedianFilter(System.Double[],System.Int32,System.Int32)">
+            <summary>
+            <para>Median filter the input sequence.</para>
+            <para>Chinese Simplified: 对输入序列进行中值滤波。</para>
+            </summary>
+            <param name="x">输入序列</param>
+            <param name="leftRank">滤波器左侧元素数量，必须大于等于0</param>
+            <param name="rightRank">滤波器右侧元素数量，若小于0则等于左侧元素元素数量</param>
+            <returns>滤波后序列</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Filtering.FIRFilter(System.Double[],System.Double[])">
+            <summary>
+            <para>Filter the input sequence using a direct FIR filter specified by the fir coefficient.</para>
+            <para>Chinese Simplified: 使用FIR系数指定的直接型FIR滤波器，对输入序列进行滤波。</para>
+            </summary>
+            <param name="x">输入序列</param>
+            <param name="coefficients">FIR滤波器的系数</param>
+            <returns>滤波后序列</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Filtering.IIRFilter(System.Double[],System.Double[],System.Double[])">
+            <summary>
+            <para>Filter the input sequence x by a direct type IIR filter specified by the reverse coefficient and the forward coefficient.</para>
+            <para>Chinese Simplified: 通过反向系数和前向系数指定的直接型IIR滤波器，对输入序列X进行滤波。</para>
+            </summary>
+            <param name="x">输入序列</param>
+            <param name="forwardCoefficients">IIR滤波器的前向系数</param>
+            <param name="reverseCoefficients">IIR滤波器的反向系数</param>
+            <returns>滤波后序列</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Filtering.ZeroPhaseFilter(System.Double[],System.Double[],System.Double[])">
+            <summary>
+            <para>Filter the input sequence using zero phase filter without boundary extension.</para>
+            <para>Chinese Simplified: 使用零相位滤波器对输入序列进行滤波，未进行边界延拓。</para>
+            </summary>
+            <param name="x">输入序列</param>
+            <param name="forwardCoefficients">IIR滤波器的前向系数</param>
+            <param name="reverseCoefficients">IIR滤波器的反向系数</param>
+            <returns>滤波后序列</returns>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog">
+            <summary>
+            模拟信号操作类
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.Invert(System.Double[])">
+            <summary>
+            <para>Calculate the opposite number for each element in the array.</para>
+            <para>Chinese Simplified: 对数组中的每个元素求相反数。</para>
+            </summary>
+            <param name="x">输入序列</param>
+            <returns>输出数组</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.Convolution(System.Double[],System.Double[])">
+            <summary>
+            <para>Calculate the convolution of two one-dimensional input sequences using direct method of linear convolution.</para>
+            <para>Chinese Simplified: 计算两个一维输入序列的卷积，使用线性卷积的direct方法。</para>
+            </summary>
+            <param name="x">第一个输入序列</param>
+            <param name="y">第二个输入序列</param>
+            <returns>卷积结果</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.AutoCorrelation(System.Double[],SeeSharpTools.JY.DSP.Utility.Normalization)">
+            <summary>
+            <para>Calculate the autocorrelation of one-dimensional sequence.</para>
+            <para>Chinese Simplified: 计算一维输入序列的自相关。</para>
+            </summary>
+            <param name="x">一维输入序列</param>
+            <param name="normalization">归一化方法</param>
+            <returns>自相关结果</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.CrossCorrelation(System.Double[],System.Double[],SeeSharpTools.JY.DSP.Utility.Normalization)">
+            <summary>
+            <para>Calculate the cross-correlation of two one-dimensional sequences using the direct method of linear convolution.</para>
+            <para>Chinese Simplified: 计算两个一维输入序列的互相关，使用线性卷积的direct方法计算。</para>
+            </summary>
+            <param name="x">第一个输入序列</param>
+            <param name="y">第二个输入序列</param>
+            <param name="normalization">归一化方法</param>
+            <returns>互相关结果</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.ZeroPadder(System.Double[],System.Boolean)">
+            <summary>
+            <para>Adjust the size of the input array of the input sequence to the next valid integer power of 2, and set the new tail element in the sequence to zero.</para>
+            <para>Chinese Simplified: 使输入序列输入数组的大小调整为下一个有效的2的整数次幂，序列中新增的尾部元素设为零。</para>
+            </summary>
+            <param name="x">输入一维序列</param>
+            <param name="ignoreCurrent">仅在数组大小不是2的幂时用0填充输入数组</param>
+            <returns>补零完成的数组</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.UnwrapPhase(System.Double[],SeeSharpTools.JY.DSP.Utility.PhaseUnit)">
+            <summary>
+            <para>Delete the discontinuities whose absolute values exceed PI or 180 degree and expand the phase array.</para>
+            <para>Chinese Simplified: 删除绝对值超过pi或180的不连续部分，展开相位数组。</para>
+            </summary>
+            <param name="phase"></param>
+             <param name="phaseUnit">相位单位</param>
+            <returns>展开的相位</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.Scale(System.Double[],System.Double@,System.Double@)">
+            <summary>
+            <para>Delete the offset of the input signal x and scale the result so that the output sequence is in [–1:1].</para>
+            <para>Chinese Simplified: 删除输入信号X的偏移量并缩放结果，使输出序列在[–1:1]的区间。</para>
+            </summary>
+            <param name="x">输入数组</param>
+            <param name="scale">缩放因子或比例因子</param>
+            <param name="offset">偏移量因子</param>
+            <returns>缩放后的输出数组</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.Normalize(System.Double[],System.Double@,System.Double@)">
+            <summary>
+            <para>Normalize the input vector according to the statistical distribution (µ, s) (µ is the mean and s is the standard deviation) to obtain the normalized vector with the statistical distribution of (0,1).</para>
+            <para>Chinese Simplified: 依据统计分布(µ,s)使输入向量归一化（µ是均值，s是标准差），得到统计分布为(0,1)的归一化向量。</para>
+            </summary>
+            <param name="x">输入向量</param>
+            <param name="standDeviation">向量的标准差</param>
+            <param name="mean">向量的均值</param>
+            <returns>归一化的向量</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.Upsample(System.Double[],System.Int32,System.Int32)">
+            <summary>
+            <para>Upsample the input sequence by the upsampling factor.</para>
+            <para>Chinese Simplified: 通过升采样因子在输入序列中插入零。</para>
+            </summary>
+            <param name="x">输入序列</param>
+            <param name="upsamplingFactor">升采样因子，指两个采样间0的数目，必须大于0</param>
+            <param name="leadingZeros">升采样数组中前导零的数目，必须大于等于0并且小于升采样因子</param>
+            <returns>输出的升采样数组</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.Downsample(System.Double[],System.Int32,System.Boolean)">
+            <summary>
+            <para>Downsample the input sequence by downsampling factor and averaging.</para>
+            <para>Chinese Simplified: 通过降采样因子和平均布尔控件，对输入序列进行降采样。</para>
+            </summary>
+            <param name="x">输入序列</param>
+            <param name="downsamplingFactor">降采样因子，必须大于0</param>
+            <param name="averaging">是否平均</param>
+            <returns>输出的降采样数组</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.Detrend(System.Double[],System.Double[]@,System.Double[]@,SeeSharpTools.JY.DSP.Utility.DetrendMethod,System.Int32)">
+            <summary>
+            <para>Detrend the input sequence.</para>
+            <para>Chinese Simplified: 对输入序列进行去趋势。</para>
+            </summary>
+            <param name="x">一维输入序列</param>
+            <param name="detrended">去趋势后的序列</param>
+            <param name="trend">趋势序列</param>
+            <param name="detrendMethod">去趋势的曲线拟合方法</param>
+            <param name="order">拟合阶数，仅当detrendMethod为Polynomial时有效</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.WeightMovingAverage(System.Double[],SeeSharpTools.JY.DSP.Utility.WeightAverageType,System.Double[])">
+            <summary>
+            <para>Weighted average the input sequence is to smooth the fluctuation, which is similar to low-pass filtering.</para>
+            <para>Chinese Simplified: 对输入序列进行权重平均以平滑波动，类似于低通滤波。</para>
+            </summary>
+            <param name="x">输入序列</param>
+            <param name="type">移动平均类型</param>
+            <param name="userDefinedWeights">用户定义权重数组，必须为奇数个元素的对称数组</param>
+            <returns>平均后的输出序列</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.ExponentialAverage(System.Double[],SeeSharpTools.JY.DSP.Utility.WeightingFactors,SeeSharpTools.JY.DSP.Utility.ExponentialType,System.Int32,SeeSharpTools.JY.DSP.Utility.SeasonType)">
+            <summary>
+            <para>Exponentially average the input sequence is to smooth the fluctuation, which is similar to low-pass filtering.</para>
+            <para>Chinese Simplified: 对输入序列进行指数平均以平滑波动，类似于低通滤波。</para>
+            </summary>
+            <param name="x">输入序列</param>
+            <param name="factors">权重因子</param>
+            <param name="type">指数平均类型</param>
+            <param name="seasonPeriod">季节模式的长度，仅当平均类型为Triple时有效</param>
+            <param name="seasonType">季节类型，仅当平均类型为Triple时有效</param>
+            <returns>平均后的输出序列</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.Resampling(System.Double[],System.Double,System.Double,SeeSharpTools.JY.DSP.Utility.InterpolationMode)">
+            <summary>
+            <para>Resample the uniform input sequence with a new sampling rate, and the starting index position remains unchanged.</para>
+            <para>Chinese Simplified: 对均匀输入序列使用新的采样率进行重采样，起始索引位置不变。</para>
+            </summary>
+            <param name="x">原始输入序列</param>
+            <param name="originalSamplingRate">原信号的采样率</param>
+            <param name="newSamplingRate">指定的输出序列的采样率</param>
+            <param name="mode">重采样的插值模式</param>
+            <returns>重采样后的输出序列</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Analog.Resampling(System.Double[],System.Double[],System.Double,SeeSharpTools.JY.DSP.Utility.InterpolationMode)">
+            <summary>
+            <para>Resample the non-uniform input sequence with a new sampling rate, and the starting index position remains unchanged.</para>
+            <para>Chinese Simplified: 对非均匀输入序列使用新的采样率进行重采样，起始索引不变。</para>
+            </summary>
+            <param name="x">原始输入序列</param>
+            <param name="indexes">输入序列的索引集合</param>
+            <param name="newSamplingRate">指定的输出序列的采样率</param>
+            <param name="mode">重采样的插值模式</param>
+            <returns>重采样后的输出序列</returns>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital">
+            <summary>
+            数字信号操作类
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.GetDigitalSize(System.Byte[0:,0:],System.Int32@,System.Int32@)">
+            <summary>
+            <para>Returns the number of samples and signals contained in the digital input.</para>
+            <para>Chinese Simplified: 返回数字输入中包含的采样和信号的数量。</para>
+            </summary>
+            <param name="signal">输入数字信号，通道按列排列</param>
+            <param name="sampleCount">返回数字输入包含的数字数据的采样数据元素的数目</param>
+            <param name="signalCount">返回数字输入中包含的信号元素数目</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.DigitalToBool(System.Byte[0:,0:],System.Boolean[0:,0:]@,SeeSharpTools.JY.DSP.Utility.Mode)">
+            <summary>
+            <para>Converts a digital signal into a two-dimensional Boolean array.</para>
+            <para>Chinese Simplified: 将数字信号转换为二维布尔数组。</para>
+            </summary>
+            <param name="src">输入数字信号，通道按列排列</param>
+            <param name="dst">转换后布尔数组</param>
+            <param name="mode">对数据进行的转换从最低有效位(LSB)或最高有效位(MSB)开始，默认为LSB</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.BoolToDigital(System.Boolean[0:,0:],System.Byte[0:,0:]@,SeeSharpTools.JY.DSP.Utility.Mode)">
+            <summary>
+            <para>Converts a two-dimensional Boolean array to a digital signal.</para>
+            <para>Chinese Simplified: 将二维布尔数组转换为数字信号。</para>
+            </summary>
+            <param name="src">输入布尔数组</param>
+            <param name="dst">转换后数字信号，通道按列排列</param>
+            <param name="mode">对数据进行的转换从最低有效位(LSB)或最高有效位(MSB)开始，默认为LSB</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.DigitalToBinary(System.Byte[0:,0:],System.Byte[]@)">
+            <summary>
+            <para>Converts a digital signal to a one-dimensional unsigned byte integer array.</para>
+            <para>Chinese Simplified: 将数字信号转换为一维无符号整型数组。</para>
+            </summary>
+            <param name="src">输入数字信号，通道按列排列</param>
+            <param name="dst">转换后二进制数组，UInt8类型</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.DigitalToBinary(System.Byte[0:,0:],System.UInt16[]@)">
+            <summary>
+            <para>Converts a digital signal to a one-dimensional ushort integer array.</para>
+            <para>Chinese Simplified: 将数字信号转换为一维无符号整型数组。</para>
+            </summary>
+            <param name="src">输入数字信号，通道按列排列</param>
+            <param name="dst">转换后二进制数组，UInt16类型</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.DigitalToBinary(System.Byte[0:,0:],System.UInt32[]@)">
+            <summary>
+            <para>Converts a digital signal to a one-dimensional uint integer array.</para>
+            <para>Chinese Simplified: 将数字信号转换为一维无符号整型数组。</para>
+            </summary>
+            <param name="src">输入数字信号，通道按列排列</param>
+            <param name="dst">转换后二进制数组，UInt32类型</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.BinaryToDigital(System.Byte[],System.Byte[0:,0:]@)">
+            <summary>
+            <para>Converts a one-dimensional unsigned byte array to a digital signal.</para>
+            <para>Chinese Simplified: 将一维无符号整型数组转换为数字信号。</para>
+            </summary>
+            <param name="src">输入二进制数组，UInt8类型</param>
+            <param name="dst">转换后数字信号，通道按列排列</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.BinaryToDigital(System.UInt16[],System.Byte[0:,0:]@)">
+            <summary>
+            <para>Converts a one-dimensional ushort array to a digital signal.</para>
+            <para>Chinese Simplified: 将一维无符号整型数组转换为数字信号。</para>
+            </summary>
+            <param name="src">输入二进制数组，UInt16类型</param>
+            <param name="dst">转换后数字信号，通道按列排列</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.BinaryToDigital(System.UInt32[],System.Byte[0:,0:]@)">
+            <summary>
+            <para>Converts a one-dimensional uint array to a digital signal.</para>
+            <para>Chinese Simplified: 将一维无符号整型数组转换为数字信号。</para>
+            </summary>
+            <param name="src">输入二进制数组，UInt32类型</param>
+            <param name="dst">转换后数字信号，通道按列排列</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.Shift(System.Byte[0:,0:],System.Byte[0:,0:]@,System.Int32,SeeSharpTools.JY.DSP.Utility.ShiftDirection)">
+            <summary>
+            <para>Shift the input digital signal.</para>
+            <para>Chinese Simplified: 对指定数字信号进行移位操作。</para>
+            </summary>
+            <param name="src">原始数字信号</param>
+            <param name="dst">输出数字信号</param>
+            <param name="shiftCount">移位个数</param>
+            <param name="direction">移位方向</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.Invert(System.Byte[0:,0:],System.Byte[0:,0:]@,System.Int32,System.Int32)">
+            <summary>
+            <para>Reverse the digital data in the input digital so that 0 convert 1 (or 1 convert 0).</para>
+            <para>Chinese Simplified: 对数字输入中的数字数据取反，使0变为1（或1变为0）。</para>
+            </summary>
+            <param name="src">原始数字信号</param>
+            <param name="dst">输出数字信号</param>
+            <param name="signalIndex">开始取反数据的信号索引，默认值为0</param>
+            <param name="count">要反转的信号的数量，从索引处开始，默认值-1表示取反所有信号</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.GetSubset(System.Byte[0:,0:],System.Byte[0:,0:]@,System.Int32[])">
+            <summary>
+            <para>Returns a subset of digital inputs used to plot extracted signals one by one or group on a graph.</para>
+            <para>Chinese Simplified: 返回数字输入的子集，用于在图形上逐个绘制或按组绘制提取的信号。</para>
+            </summary>
+            <param name="src">原始数字信号</param>
+            <param name="dst">输出的数字信号子集</param>
+            <param name="signalIndexes">信号索引组成的一维数组</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.AppendSignals(System.Byte[0:,0:],System.Byte[0:,0:],System.Byte[0:,0:]@,SeeSharpTools.JY.DSP.Fundamental.DigitalState)">
+            <summary>
+            <para>Combining two digital signals.</para>
+            <para>Chinese Simplified: 合并两个数字信号。</para>
+            </summary>
+            <param name="src1">第一组数字信号，代表高位</param>
+            <param name="src2">第二组数字信号，代表低位</param>
+            <param name="dst">合并后的数字信号</param>
+            <param name="defaultValue">采样数不同时，用于填充数字波形输出的数字数据的额外采样值</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.Digital.AppendSamples(System.Byte[0:,0:],System.Byte[0:,0:],System.Byte[0:,0:]@,SeeSharpTools.JY.DSP.Fundamental.DigitalState)">
+            <summary>
+            <para>Add all samples of the digital waveform src2 after the digital waveform src1.</para>
+            <para>Chinese Simplified: 添加数字波形src2的所有采样至数字波形src1之后。</para>
+            </summary>
+            <param name="src1">第一组数字信号</param>
+            <param name="src2">第二组数字信号</param>
+            <param name="dst">合并后的数字信号</param>
+            <param name="defaultValue">信号数不同时，用于填充数字波形输出中数字数据的额外信号</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.AnalogToDigital(System.Double[],System.Byte[0:,0:]@,System.Int32,System.Double,SeeSharpTools.JY.DSP.Utility.DataFormat)">
+            <summary>
+            <para>Convert analog signals into digital signals.</para>
+            <para>Chinese Simplified: 将模拟信号转换为数字信号。</para>
+            </summary>
+            <param name="analogData">原始模拟信号</param>
+            <param name="digitalData">输出数字信号</param>
+            <param name="resolution">数字信号的位数</param>
+            <param name="fullScaleRange">数字信号的峰峰值，或最小值与最大值的差</param>
+            <param name="dataFormat">数字信号使用的二进制表示法，默认为二进制偏移量</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalOperation.DigitalToAnalog(System.Byte[0:,0:],System.Double[]@,System.Double,SeeSharpTools.JY.DSP.Utility.DataFormat)">
+            <summary>
+            <para>Convert analog signals into digital signals.</para>
+            <para>Chinese Simplified: 将数字信号转换为模拟信号。</para>
+            </summary>
+            <param name="digitalData">原始数字信号</param>
+            <param name="analogData">输出模拟信号</param>
+            <param name="fullScaleRange">数字信号的峰峰值，或最小值与最大值的差</param>
+            <param name="dataFormat">数字信号使用的二进制表示法，默认为二进制偏移量</param>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.Mode">
+            <summary>
+            模式
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.Mode.LSB_First">
+            <summary>
+            低位在前
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.Mode.MSB_First">
+            <summary>
+            高位在前
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.ShiftDirection">
+            <summary>
+            移位方向
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.ShiftDirection.Left">
+            <summary>
+            左移
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.ShiftDirection.Right">
+            <summary>
+            右移
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.DataFormat">
+            <summary>
+            数字信号使用的二进制表示法
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.DataFormat.UnsignedBinary">
+            <summary>
+            无符号二进制：将数据转换为无符号二进制
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.DataFormat.OffsetBinary">
+            <summary>
+            二进制偏移量：最大的负值的每一位均为0，而最大的正值的每一位均为1。 最高有效位后全部为0表示0（例如，二进制1000）
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.DataFormat.Two_Complement">
+            <summary>
+            二进制补码：使用二进制补码格式，是表示带符号二进制值的常用格式。 该格式与二进制偏移相似，但是最高有效位是相反的
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.Normalization">
+            <summary>
+            用于计算自相关的归一化方法
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.Normalization.None">
+            <summary>
+            无归一化
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.Normalization.Biased">
+            <summary>
+            偏差归一化
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.Normalization.Unbiased">
+            <summary>
+            无偏差归一化
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.PhaseUnit">
+            <summary>
+            相位单位
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.PhaseUnit.radian">
+            <summary>
+            弧度单位
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.PhaseUnit.degree">
+            <summary>
+            角度单位
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.Edge">
+            <summary>
+            边沿设置
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.Edge.None">
+            <summary>
+            无边沿
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.Edge.Rising">
+            <summary>
+            上升沿
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.Edge.Falling">
+            <summary>
+            下降沿
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.Edge.Both">
+            <summary>
+            所有边沿
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.InterpolationMode">
+            <summary>
+            重采样使用的插值算法
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.InterpolationMode.Linear">
+            <summary>
+            指定每个输出采样值为两个时间上最接近的输入采样的线性插值
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.InterpolationMode.Spline">
+            <summary>
+            使用样条插值算法计算重采样值
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.InterpolationMode.FIRFilter">
+            <summary>
+            使用有限长冲激响应(FIR)滤波算法计算重采样值
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.DetrendMethod">
+            <summary>
+            去趋势的曲线拟合方法
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.DetrendMethod.Linear">
+            <summary>
+            线性拟合
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.DetrendMethod.Polynomial">
+            <summary>
+            多项式拟合
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.DetrendMethod.Exponential">
+            <summary>
+            指数拟合
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.WeightAverageType">
+            <summary>
+            权重平均类型
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.WeightAverageType.Spencer_15_term">
+            <summary>
+            Spencer's 15-Point Moving Average
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.WeightAverageType.Henderson_7_term">
+            <summary>
+            Henderson's 7-term Moving Average
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.WeightAverageType.Henderson_9_term">
+            <summary>
+            Henderson's 9-term Moving Average
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.WeightAverageType.Henderson_13_term">
+            <summary>
+            Henderson's 13-term Moving Average
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.WeightAverageType.Henderson_23_term">
+            <summary>
+            Henderson's 23-term Moving Average
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.ExponentialType">
+            <summary>
+            指数平均类型
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.ExponentialType.Single">
+            <summary>
+            一阶指数
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.ExponentialType.Double">
+            <summary>
+            二阶指数
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.ExponentialType.Tripple">
+            <summary>
+            三阶指数
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.SeasonType">
+            <summary>
+            季节类型
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.SeasonType.Multiplicative">
+            <summary>
+            乘性，幅度随时间而增加
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.SeasonType.Additive">
+            <summary>
+            加性，幅度随时间保持不变
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.WeightingFactors">
+            <summary>
+            指数平滑的权重因子
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.WeightingFactors.#ctor">
+            <summary>
+            构造函数，设置默认值
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Utility.WeightingFactors.Level">
+            <summary>
+            水平累积量，大小在0和1之间，默认值为0.2
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Utility.WeightingFactors.Trend">
+            <summary>
+            趋势累积量，大小在0和1之间，默认值为0.2，仅当指数平均类型为Double或Triple时有效
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Utility.WeightingFactors.Season">
+            <summary>
+            季节累积量，大小在0和1之间，默认值为0.2，仅当指数平均类型为Triple时有效
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.SystemNoiseCalculation">
+            <summary>
+            系统噪声计算
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SystemNoiseCalculation.CalculateSystemNoise(System.Double[],System.Double,System.Double,System.Double)">
+            <summary>
+            Calculate System Noise In Target Band ( Frequency Domain Method ).
+            No DC.
+            </summary>
+            <param name="timewaveform">Waveform in time space</param>
+            <param name="dt"> Interval time of waveform </param>
+            <param name="startFrequency">Start frequency( FFT result bin0 and bin1 removed )</param>
+            <param name="stopFrequency">Stop frequency</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SystemNoiseCalculation.CalculateSystemNoise(System.Double[])">
+            <summary>
+            Calculate System Noise ( Time Domain Method ).
+            No DC.
+            </summary>
+            <param name="timewaveform">Waveform in time space</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SystemNoiseCalculation.ComponentsLevelCaculation(System.Double[],System.Double,System.Double@,System.Double@,System.Double[]@,System.Int32)">
+            <summary>
+            Calculates the THD and level of all components of the input signal.
+            THD in value, not %
+            component levels in voltage peak which is 1.414*rms
+            component[0]=DC level; [1]=fundamental frequency level; ...
+            if the specified highest harmonic is higher than nyquest freq, 
+            the exceeded frequency components will be 0; 
+            </summary>
+            <param name="timewaveform">the waveform of input signal assuming in voltage</param>
+            <param name="dt">sampling interval of timewaveform (s)</param>
+            <param name="detectedFundamentalFreq">the calculated peak tone frequency in the range of search</param>
+            <param name="THD">total harmonic distortion in scale = sqrt(sum(harmonics power) / fundamental power)</param>
+            <param name="componentsLevel">in voltage peak which is 1.414*rms, [0]for DC [1] for fundamental</param>
+            <param name="highestHarmonic">the highest order to analysis, if too high, the exceeded harmonics level will be 0</param>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.HarmonicAnalysis">
+            <summary>
+            谐波分析类
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.HarmonicAnalysis.CalculateSystemNoise(System.Double[],System.Double,System.Double,System.Double)">
+            <summary>
+            Calculate System Noise In Target Band ( Frequency Domain Method ).
+            No DC.
+            </summary>
+            <param name="timewaveform">Waveform in time space</param>
+            <param name="dt"> Interval time of waveform </param>
+            <param name="startFrequency">Start frequency( FFT result bin0 and bin1 removed )</param>
+            <param name="stopFrequency">Stop frequency</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.HarmonicAnalysis.CalculateSystemNoise(System.Double[])">
+            <summary>
+            Calculate System Noise ( Time Domain Method ).
+            No DC.
+            </summary>
+            <param name="timewaveform">Waveform in time space</param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.MedianFilter">
+            <summary>
+            The Median Filter is a non-linear digital filtering technique, often used to remove noise from a signal.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.MedianFilter.Process(System.Double[],System.Int32)">
+            <summary>
+            The block uses the sliding window method to compute the moving median. 
+            In this method, a window of specified length moves  sample by sample, and the block computes the median of the data in the window. 
+            This block performs median filtering on the input data over time.
+            </summary>
+            <param name="signal">Input signal</param>
+            <param name="windowLength">Median filter window length, it should be 2N+1, and >=3</param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.PeakValleyAnalysis">
+            <summary>
+            Peak and valley analysis
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.PeakValleyAnalysis.FindPeaks(System.Double[],System.Double,System.Double[]@,System.Double[]@)">
+            <summary>
+            Find peaks
+            </summary>
+            <param name="data">input values</param>
+            <param name="minPeakProminence">min peak prominence</param>
+            <param name="index">indexes of peaks</param>
+            <param name="value">values of peaks</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.PeakValleyAnalysis.FindValleys(System.Double[],System.Double,System.Double[]@,System.Double[]@)">
+            <summary>
+            Find valleys
+            </summary>
+            <param name="data">input values</param>
+            <param name="minPeakProminence">min peak prominence</param>
+            <param name="index">indexes of valleys</param>
+            <param name="value">values of valleys</param>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.Phase">
+            <summary>
+            Phase measurement class
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.Phase.CalPhaseShift(System.Double[],System.Double[])">
+            <summary>
+            Calculate the phase shift between two input waveform arrays, return value will be between -180° and 180°.
+            </summary>
+            <param name="signal1">waveform array1</param>
+            <param name="signal2">waveform array2</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.Phase.CalPhaseShift(System.Single[],System.Single[])">
+            <summary>
+            Calculate the phase shift between two input waveform arrays, return value will be between -180° and 180°.
+            </summary>
+            <param name="signal1">waveform array1</param>
+            <param name="signal2">waveform array2</param>
+            <returns>phase shift in unit of degree</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.Phase.MathDotNetHilbert(System.Double[])">
+            <summary>
+            Hilbert transform by Math.Net
+            </summary>
+            <param name="xreal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.Phase.MathDotNetHilbert(System.Single[])">
+            <summary>
+            Hilbert transform by Math.Net
+            </summary>
+            <param name="xreal"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.Properties.Resources">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Utility.Properties.Resources.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Utility.Properties.Resources.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.DSP.Utility.Properties.Resources.Coefficient">
+             <summary>
+               查找类似 1000.000000000000000
+            171769.000000000000000
+            -0.000000000036738
+            -0.000000000037107
+            -0.000000000037476
+            -0.000000000037846
+            -0.000000000038216
+            -0.000000000038587
+            -0.000000000038958
+            -0.000000000039329
+            -0.000000000039700
+            -0.000000000040071
+            -0.000000000040443
+            -0.000000000040815
+            -0.000000000041188
+            -0.000000000041560
+            -0.000000000041933
+            -0.000000000042306
+            -0.000000000042680
+            -0.000000000043054
+            -0.000000000043427
+            -0.000000000043802
+            -0.000000000044176
+            -0.000000000044551
+            -0.000000000044925
+            -0.000 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+             </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.SignalProcessing">
+            <summary>
+            信号处理类库，包含峰值检测、过零点检测以及自定义上下限范围检测
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalProcessing.CheckThreshold(System.Double[],System.Double,System.Boolean)">
+            <summary>
+            列举出超过阈值/低于阈值的集合
+            </summary>
+            <param name="data">输入数组</param>
+            <param name="threshold">阈值</param>
+            <param name="isAboveLevel">T:侦测波峰；F:侦测波谷</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalProcessing.CheckCrossZeroPoints(System.Double[],System.Boolean)">
+            <summary>
+            过零点检测，列举出过零点的值（和下一点作比较）
+            </summary>
+            <param name="data">输入数组</param>
+            <param name="isAbove">T:大于零点；F:小于零点</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalProcessing.CheckInRange(System.Double[],System.Double[],System.Double[])">
+            <summary>
+            自定义上下限范围检测(三个数组长度需要一样，大于上限返回1,小于下限返回-1,在范围内返回0）
+            </summary>
+            <param name="data">输入数组</param>
+            <param name="highLimit">上限数组</param>
+            <param name="lowLimit">下限数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalProcessing.Interpolate(System.Double[],System.Double[],System.Double,SeeSharpTools.JY.DSP.Utility.IntepolationType)">
+            <summary>
+            内插值计算，指定xValues以及yValues，经过大小排序后返回指定xPoint资料的内插值。默认使用线性内插
+            </summary>
+            <param name="xValues">数据点</param>
+            <param name="yValues">数据值</param>
+            <param name="xPoint">指定的数据点</param>
+            <param name="type">内插类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SignalProcessing.EstimateACDC(System.Double[],System.Double@,System.Double@)">
+            <summary>
+            计算出信号的AC成分以及DC成分(单位：RMS)
+            </summary>
+            <param name="signalData">信号来源</param>
+            <param name="acTerm">AC成分</param>
+            <param name="dcTerm">DC成分</param>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.IntepolationType">
+            <summary>
+            内插类型
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.IntepolationType.Linear">
+            <summary>
+            Linear
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.IntepolationType.CubicSpline">
+            <summary>
+            CubicSpline
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.IntepolationType.LogLinear">
+            <summary>
+            LogLinear
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.IntepolationType.Polynomial">
+            <summary>
+            Polynomial
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.IntepolationType.Step">
+            <summary>
+            Step
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.ToneAnalyzer">
+            <summary>
+            ToneAnalysis Class
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.ToneAnalyzer._PhaseSub(System.Double,System.Double)">
+            <summary>
+            Perform substraction on two phase value, unit in radian. Thre result will be wrapped to range [-Pi, Pi] (*)
+            </summary>
+            <param name="p1"></param>
+            <param name="p2"></param>
+            <returns>The difference between p1 and p2. </returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.ToneAnalyzer.FFTPeakCorrection(System.Numerics.Complex[])">
+            <summary>
+            Refine the peak estimation based on three cosequent peak spectrum values. 
+            Ref: X.Ming, D.Kang “Corrections for frequency, amplitude and phase in a fast fourier transform of 
+            a harmonic signal” Mechanical Systems and Signal Processing V. 10, 2, March 1996, Pages 211-221
+            </summary>
+            <param name="threeFingers">three spectrum</param>
+            <returns>Tone information. Frequency unit in 'bins'. </returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.ToneAnalyzer.SingleToneAnalysis(System.Double[],System.Double,System.Double,System.Double)">
+            <summary>
+            Single Tone Analysis
+            </summary>
+            <param name="timewaveform">Waveform in time space</param>
+            <param name="Fs">Sampling frequency, unit in Hz</param>
+            <param name="initialGuess">Initial guess for the tone frequency, unit in Hz</param>
+            <param name="searchRange">Peak search range near the initialGuess.</param>
+            <returns>Tone information of the signal. Contains amplitude, frequency and phase.</returns>
+            <created>Wei Jin,2019/11/29</created>
+            <changed>Wei Jin,2019/11/29</changed>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.ToneInfo">
+            <summary>
+            Tone Analysis Result
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.ToneInfo.Frequency">
+            <summary>
+            Tone frequency
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.ToneInfo.Amplitude">
+            <summary>
+            Tone amplitude
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.DSP.Utility.ToneInfo.Phase">
+            <summary>
+            Tone phase
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.SquarewaveMeasurements">
+            <summary>
+            Squarewave Measurements Class
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SquarewaveMeasurements.SetWaveform(System.Double[])">
+            <summary>
+            Set 1st square waveform.
+            </summary>
+            <param name="inputWaveform">Input square waveform.</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SquarewaveMeasurements.GetHighStateLevel">
+            <summary>
+            Get high state level of square waveform.
+            (1st square waveform.)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SquarewaveMeasurements.GetLowStateLevel">
+            <summary>
+            Get low state level of square waveform.
+            (1st square waveform.)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SquarewaveMeasurements.GetPeriod">
+            <summary>
+            Get period of squere waveform.
+            (1st squere waveform.)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SquarewaveMeasurements.SetWaveform2(System.Double[])">
+            <summary>
+            Set 2nd square waveform.
+            </summary>
+            <param name="inputWaveform"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.SquarewaveMeasurements.GetPhase">
+            <summary>
+            Get phase between 1st and 2nd square waveform.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JY.DSP.Utility.Synchronizer">
+            <summary>
+            Synchronizer class
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.Synchronizer.Sync(System.Double[0:,0:])">
+            <summary>
+            <para>Synchronize method that makes all the input channels simultaneous.</para>
+            <para>This method only applies to bandlimited signal such as sinusoidal waveform.</para>
+            <para>Note: </para>
+            <para>1 Array size should be numberOfChannels * SamplesPerChannel.</para>
+            <para>2 Size of return array will be smaller than input array because of settlepoints truncation.</para>
+            </summary>
+            <param name="data">input data</param>
+            <returns>syncdata after resample and filtering</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.DSP.Utility.Synchronizer.Sync(System.Double[0:,0:],System.Double)">
+            <summary>
+            <para>Synchronize method that makes all the input channels simultaneous.</para>
+            <para>This method only applies to bandlimited signal such as sinusoidal waveform.</para>
+            <para>Note: </para>
+            <para>1 Array size should be numberOfChannels * SamplesPerChannel.</para>
+            <para>2 Size of return array will be smaller than input array because of settlepoints truncation.</para>
+            </summary>
+            <param name="data">input data</param>
+            <param name="shiftPoints">number of points you want to shift</param>
+            <returns>syncdata after resample and filtering</returns>
+        </member>
+    </members>
+</doc>

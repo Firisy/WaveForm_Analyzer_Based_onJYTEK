@@ -2,11 +2,9 @@
 using SeeSharpTools.JY.DSP.FilteringMCR;
 using SeeSharpTools.JY.DSP.Fundamental;
 using SeeSharpTools.JY.DSP.Utility;
-using DSPMatlab;
 using System;
 using System.IO;
 using System.Windows.Forms;
-using SeeSharpTools.JY.DSP.Measurements;
 
 
 namespace test2
@@ -15,14 +13,13 @@ namespace test2
     {
         private JYUSB61902AITask aitask;
         double[,] readvalue = new double[5000, 2];
-        double[] volcycle = new double[5000];
-        double[] curcycle = new double[5000];
         double[] FFT_Showvol = new double[10000];
         double[] FFT_Showcur = new double[10000];
         double df2 = 0;
-        int periodLength, SlewupV, SlewupI;
+        int periodLength;
         public Form1()
         {
+            MessageBox.Show("请耐心等待程序启动。。。");
             IIRFilter.Initialize();
             InitializeComponent();
         }
@@ -33,6 +30,10 @@ namespace test2
             aitask = new JYUSB61902AITask(0);
             aitask.AddChannel(0, -10, 10, AITerminal.RSE);
             aitask.AddChannel(1, -10, 10, AITerminal.RSE);
+            aitask.AddChannel(2, -10, 10, AITerminal.RSE);
+            aitask.AddChannel(3, -10, 10, AITerminal.RSE);
+            aitask.AddChannel(4, -10, 10, AITerminal.RSE);
+            aitask.AddChannel(5, -10, 10, AITerminal.RSE);
             aitask.Mode = AIMode.Continuous;
             aitask.SampleRate = 10000;
             //aitask.SamplesToAcquire = 1000;
@@ -43,6 +44,10 @@ namespace test2
         }
         double[] vol = new double[5000];
         double[] cur = new double[5000];
+        double[] vol2 = new double[5000];
+        double[] cur2 = new double[5000];
+        double[] vol3 = new double[5000];
+        double[] cur3 = new double[5000];
         double fs;
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -52,14 +57,30 @@ namespace test2
             {
                 vol[i] = readvalue[i, 0];
                 cur[i] = readvalue[i, 1];
+                vol2[i] = readvalue[i, 2];
+                cur2[i] = readvalue[i, 3];
+                vol3[i] = readvalue[i, 4];
+                cur3[i] = readvalue[i, 5];
             }
             //IIRFilter.ProcessLowpass(cur, 0.1, 100);
-            easyChartX1.Plot(vol);
-            easyChartX2.Plot(cur);
+            double[,] displayvol = new double[3, 5000];
+            displayval(vol,vol2,vol3,ref displayvol);
+            easyChartX1.Plot(displayvol);
+            double[,] displaycur = new double[3, 5000];
+            displayval(cur,cur2,cur3, ref displaycur);
+            easyChartX2.Plot(displaycur);
             if (led1.Value) led1.Value = false;
             else led1.Value = true;
         }
-
+        void displayval(double[] val1,double[] val2,double[] val3, ref double[,] displayvalues)
+        {
+            for(int i=0;i<5000;i++)
+            {
+                displayvalues[0, i] = val1[i];
+                displayvalues[1, i] = val2[i];
+                displayvalues[2, i] = val3[i];
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             aitask.Stop();
@@ -71,7 +92,7 @@ namespace test2
         private void button3_Click(object sender, EventArgs e)
         {
             string filename = textBox1.Text;
-            using (StreamWriter file = new StreamWriter("D:/"+filename+".csv", true))
+            using (StreamWriter file = new StreamWriter("D:/" + filename + ".csv", true))
             {
                 file.Write("vol\n");
                 for (int j = 0; j < 5000; j++)
@@ -105,26 +126,108 @@ namespace test2
                         file.Write(",");
                 }
                 file.Write("\n");
+               
+                file.Write("vol2\n");
+                for (int j = 0; j < 5000; j++)
+                {
+                    file.Write(vol2[j]);
+                    if (j < 4999)
+                        file.Write(",");
+                }
+                file.Write("\n");
+                file.Write("cur2\n");
+                for (int j = 0; j < 5000; j++)
+                {
+                    file.Write(cur2[j]);
+                    if (j < 4999)
+                        file.Write(",");
+                }
+                file.Write("\n");
+                file.Write("FFT_vol2\n");
+                for (int j = 0; j < FFT_Showvol2.Length; j++)
+                {
+                    file.Write(FFT_Showvol2[j]);
+                    if (j < 4999)
+                        file.Write(",");
+                }
+                file.Write("\n");
+                file.Write("FFT_cur2\n");
+                for (int j = 0; j < FFT_Showcur2.Length; j++)
+                {
+                    file.Write(FFT_Showvol2[j]);
+                    if (j < 4999)
+                        file.Write(",");
+                }
+                file.Write("\n");
+                file.Write("vol3\n");
+                for (int j = 0; j < 5000; j++)
+                {
+                    file.Write(vol3[j]);
+                    if (j < 4999)
+                        file.Write(",");
+                }
+                file.Write("\n");
+                file.Write("cur3\n");
+                for (int j = 0; j < 5000; j++)
+                {
+                    file.Write(cur3[j]);
+                    if (j < 4999)
+                        file.Write(",");
+                }
+                file.Write("\n");
+                file.Write("FFT_vol3\n");
+                for (int j = 0; j < FFT_Showvol3.Length; j++)
+                {
+                    file.Write(FFT_Showvol3[j]);
+                    if (j < 4999)
+                        file.Write(",");
+                }
+                file.Write("\n");
+                file.Write("FFT_cur3\n");
+                for (int j = 0; j < FFT_Showcur3.Length; j++)
+                {
+                    file.Write(FFT_Showvol3[j]);
+                    if (j < 4999)
+                        file.Write(",");
+                }
+                file.Write("\n");
             }
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            CalculatorVI.CalT(vol, cur, out periodLength, out SlewupV, out SlewupI, out volcycle, out curcycle);
-            easyChartX1.Plot(volcycle);
-            easyChartX2.Plot(curcycle);
+            CalculatorVI.CalT(vol, cur, out periodLength);
             double phi;
             phi = Phase.CalPhaseShift(vol, cur);
             textBoxphi.Text = phi.ToString("0.###");
             textBoxpp.Text = Math.Cos(phi / 180 * 3.1415926).ToString();
-            double T = periodLength;
+            double T = periodLength/10;
             textBoxT.Text = T.ToString("0.###"); // 保留三位小数  
-
-            textBoxV.Text = CalculatorVI.CalVrms(volcycle,periodLength).ToString("0.###");
-            textBoxI.Text = CalculatorVI.CalIrms(curcycle, periodLength).ToString("0.###"); // 保留三位小数  
-            textBoxP.Text = CalculatorVI.CalP(volcycle, curcycle, periodLength).ToString("0.###"); // 保留三位小数  
+            textBoxV.Text = CalculatorVI.CalVrms(vol, periodLength).ToString("0.###");
+            textBoxI.Text = CalculatorVI.CalIrms(cur, periodLength).ToString("0.###"); // 保留三位小数  
+            textBoxP.Text = CalculatorVI.CalP(vol, cur, periodLength).ToString("0.###"); // 保留三位小数  
             textBoxVA.Text = CalculatorVI.CalVA1().ToString("0.###"); // 保留三位小数  
-            textBoxQ2.Text = CalculatorVI.CalQ2(volcycle, curcycle, periodLength).ToString("0.###"); // 保留三位小数  
-            textBoxQ.Text = CalculatorVI.CalQ1().ToString("0.###"); // 保留三位小数  
+            textBoxQ2.Text = CalculatorVI.CalQ2(vol, cur, periodLength).ToString("0.###"); // 保留三位小数  
+            textBoxQ.Text = CalculatorVI.CalQ1().ToString("0.###"); // 保留三位小数
+
+            phi = Phase.CalPhaseShift(vol2, cur2);
+            textBoxang_2 .Text = phi.ToString("0.###");
+            textBoxpp_2.Text = Math.Cos(phi / 180 * 3.1415926).ToString();
+            textBox13 .Text = CalculatorVI.CalVrms(vol2, periodLength).ToString("0.###");
+            textBox12 .Text = CalculatorVI.CalIrms(cur2, periodLength).ToString("0.###"); // 保留三位小数  
+            textBoxP2.Text = CalculatorVI.CalP(vol2, cur2, periodLength).ToString("0.###"); // 保留三位小数  
+            textBoxS2.Text = CalculatorVI.CalVA1().ToString("0.###"); // 保留三位小数  
+            textBoxQ2_2.Text = CalculatorVI.CalQ2(vol2, cur2, periodLength).ToString("0.###"); // 保留三位小数  
+            textBoxQ_2.Text = CalculatorVI.CalQ1().ToString("0.###"); // 保留三位小数
+
+            phi = Phase.CalPhaseShift(vol3, cur3);
+            textBoxang_3.Text = phi.ToString("0.###");
+            textBoxpp3.Text = Math.Cos(phi / 180 * 3.1415926).ToString();
+            textBoxV3.Text = CalculatorVI.CalVrms(vol3, periodLength).ToString("0.###");
+            textBoxI3.Text = CalculatorVI.CalIrms(cur3, periodLength).ToString("0.###"); // 保留三位小数  
+            textBoxP3.Text = CalculatorVI.CalP(vol3, cur3, periodLength).ToString("0.###"); // 保留三位小数  
+            textBoxS_3.Text = CalculatorVI.CalVA1().ToString("0.###"); // 保留三位小数  
+            textBoxQ2_3.Text = CalculatorVI.CalQ2(vol3, cur3, periodLength).ToString("0.###"); // 保留三位小数  
+            textBoxQ_3.Text = CalculatorVI.CalQ1().ToString("0.###"); // 保留三位小数
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -135,21 +238,87 @@ namespace test2
             {
                 string filename = openFileDialog.FileName;
                 string[] lines = File.ReadAllLines(filename);
-                int cal = 0;
+                /*int cal = 0;
                 for (int i = 12; i < 5012; i++)
                 {
                     string[] values = lines[i].Split(',');
                     vol[cal] = Convert.ToDouble(values[1]) * 100;
                     cur[cal] = Convert.ToDouble(values[2]);
                     cal++;
+                }*/
+                //读取csv文件，将数据存入vol和cur数组中，数据的格式为：第二行为电压，第四行为电流
+                string[] values = lines[1].Split(',');//Split方法将字符串分割成字符串数组
+                int maxLength = Math.Min(5000, Math.Min(vol.Length, cur.Length));
+                for (int i = 0; i < maxLength; i++)
+                {
+                    vol[i] = Convert.ToDouble(values[i])*100;
+                }
+                values = lines[3].Split(',');
+                for (int i = 0; i < maxLength; i++)
+                {
+                    cur[i] = Convert.ToDouble(values[i]);
                 }
             }
-            easyChartX1.Plot(vol);
-            easyChartX2.Plot(cur);
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filename = openFileDialog.FileName;
+                string[] lines = File.ReadAllLines(filename);
+                /*int cal = 0;
+                for (int i = 12; i < 5012; i++)
+                {
+                    string[] values = lines[i].Split(',');
+                    vol[cal] = Convert.ToDouble(values[1]) * 100;
+                    cur[cal] = Convert.ToDouble(values[2]);
+                    cal++;
+                }*/
+                //读取csv文件，将数据存入vol和cur数组中，数据的格式为：第二行为电压，第四行为电流
+                string[] values = lines[1].Split(',');//Split方法将字符串分割成字符串数组
+                int maxLength = Math.Min(5000, Math.Min(vol.Length, cur.Length));
+                for (int i = 0; i < maxLength; i++)
+                {
+                    vol2[i] = Convert.ToDouble(values[i]) * 100;
+                }
+                values = lines[3].Split(',');
+                for (int i = 0; i < maxLength; i++)
+                {
+                    cur2[i] = Convert.ToDouble(values[i]);
+                }
+            }
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filename = openFileDialog.FileName;
+                string[] lines = File.ReadAllLines(filename);
+                /*int cal = 0;
+                for (int i = 12; i < 5012; i++)
+                {
+                    string[] values = lines[i].Split(',');
+                    vol[cal] = Convert.ToDouble(values[1]) * 100;
+                    cur[cal] = Convert.ToDouble(values[2]);
+                    cal++;
+                }*/
+                //读取csv文件，将数据存入vol和cur数组中，数据的格式为：第二行为电压，第四行为电流
+                string[] values = lines[1].Split(',');//Split方法将字符串分割成字符串数组
+                int maxLength = Math.Min(5000, Math.Min(vol.Length, cur.Length));
+                for (int i = 0; i < maxLength; i++)
+                {
+                    vol3[i] = Convert.ToDouble(values[i]) * 100;
+                }
+                values = lines[3].Split(',');
+                for (int i = 0; i < maxLength; i++)
+                {
+                    cur3[i] = Convert.ToDouble(values[i]);
+                }
+            }
+            double[,] displayvol = new double[3, 5000];
+            displayval(vol, vol2, vol3, ref displayvol);
+            easyChartX1.Plot(displayvol);
+            double[,] displaycur = new double[3, 5000];
+            displayval(cur, cur2, cur3, ref displaycur);
+            easyChartX2.Plot(displaycur);
         }
         private void button8_Click(object sender, EventArgs e)
         {
-           
+
             if (textlow.Text == "")
             {
                 MessageBox.Show("请输入fPass");
@@ -169,9 +338,9 @@ namespace test2
                 return;
             }
             fs = double.Parse(textBoxfs.Text);
-           
+
             CalculatorVI.filter_input(vol, fpass, fstop, fs, out vol);
-            CalculatorVI.filter_input(cur, fpass, fstop, fs,out cur);
+            CalculatorVI.filter_input(cur, fpass, fstop, fs, out cur);
             this.Update();
             easyChartX1.Plot(vol);
             easyChartX2.Plot(cur);
@@ -200,7 +369,6 @@ namespace test2
             CalculatorVI.FFT_showing(cur, fs, ref df2, out FFT_Showcur);
             easyChart2.Plot(FFT_Showcur, 0, df2);
         }
-
         private void button5_Click(object sender, EventArgs e)
         {
             timer2.Enabled = true;
@@ -222,6 +390,61 @@ namespace test2
             easyChartX1.Plot(vol);
             easyChartX2.Plot(cur);
         }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+
+        }
+        double[] FFT_Showcur2 = new double[10000];
+        double[] FFT_Showvol2 = new double[10000];
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (textBoxfs.Text == "")
+            {
+                MessageBox.Show("请输入采样频率");
+                return;
+            }
+            fs = double.Parse(textBoxfs.Text);
+            CalculatorVI.FFT_showing(cur2, fs, ref df2, out FFT_Showcur2);
+            easyChart2.Plot(FFT_Showcur2, 0, df2);
+        }
+        private void button13_Click(object sender, EventArgs e)
+        {
+            if (textBoxfs.Text == "")
+            {
+                MessageBox.Show("请输入采样频率");
+                return;
+            }
+            fs = double.Parse(textBoxfs.Text);
+            CalculatorVI.FFT_showing(vol2, fs, ref df2, out FFT_Showvol2);
+            this.Update();
+            easyChart2.Plot(FFT_Showvol2, 0, df2);
+        }
+        double[] FFT_Showcur3 = new double[10000];
+        double[] FFT_Showvol3 = new double[10000];
+        private void button14_Click(object sender, EventArgs e)
+        {
+            if (textBoxfs.Text == "")
+            {
+                MessageBox.Show("请输入采样频率");
+                return;
+            }
+            fs = double.Parse(textBoxfs.Text);
+            CalculatorVI.FFT_showing(cur3, fs, ref df2, out FFT_Showcur3);
+            easyChart2.Plot(FFT_Showcur3, 0, df2);
+        }
+        private void button15_Click(object sender, EventArgs e)
+        {
+            if (textBoxfs.Text == "")
+            {
+                MessageBox.Show("请输入采样频率");
+                return;
+            }
+            fs = double.Parse(textBoxfs.Text);
+            CalculatorVI.FFT_showing(vol3, fs, ref df2, out FFT_Showvol3);
+            this.Update();
+            easyChart2.Plot(FFT_Showvol3, 0, df2);
+        }
     }
     class CalculatorVI
     {
@@ -237,13 +460,6 @@ namespace test2
             }
             Vrms = Math.Sqrt(vsum / periodlength);
             return Vrms;
-        }
-        public static double CalVrms2(double[] voltage)
-        {
-            LevelCrossings levelCrossings = new LevelCrossings();
-            levelCrossings.CrossingLevel =20;
-            double[] vrms= JitterAnalysis.Level.MeasureRMSVoltage(voltage,levelCrossings);
-            return vrms[0];
         }
         public static double CalIrms(double[] currency, int periodlength)
         {
@@ -286,42 +502,30 @@ namespace test2
             double Q = Math.Sqrt(Math.Pow(S, 2) - Math.Pow(P, 2));
             return Q;
         }
-        public static void CalT(double[] vol, double[] cur, out int periodLength, out int risePointV, out int risePointI, out double[] volcycle, out double[] curcycle)
+        public static void CalT(double[] vol, double[] cur, out int periodLength)
         {
-            risePointI = 0;
-            risePointV = 0;
+            int risePointV = 0;
             int downpointV = 0;
-            // 寻找周期  
+            // 寻找周期
             for (int i = 1; i < 5000; i++)
             {
-                if (risePointV != 0 && vol[i - 1] < 0 && vol[i] >= 0 && i > risePointV + 5)
+                if (risePointV != 0 && vol[i - 1] < 0 && vol[i] >= 0 && i > risePointV + 20)
                 {
                     downpointV = i;
                     break;
                 }
                 if (vol[i - 1] < 0 && vol[i] >= 0) risePointV = i;
-                if (cur[i - 1] < 0 && cur[i] >= 0) risePointI = i;
 
             }
             periodLength = downpointV - risePointV;
             if (periodLength == 0) periodLength = 2500;
-            // 赋值周期到数组a  
-            int cal = 0;
-            volcycle = new double[5000];
-            curcycle = new double[5000];
-            for (int i = risePointV; i < periodLength * 4 && i < 5000; i++)
-            {
-                volcycle[cal] = vol[i];
-                curcycle[cal] = cur[i];
-                cal++;
-            }
         }
-        public static void filter_input(double[] input, double fPass, double fStop,double fs, out double[] output)
+        public static void filter_input(double[] input, double fPass, double fStop, double fs, out double[] output)
         {
-            output = IIRFilter.ProcessLowpass(input, fPass, fStop,fs);
+            output = IIRFilter.ProcessLowpass(input, fPass, fStop, fs);
 
         }
-        public static void FFT_showing(double[] input,double fs,ref double df2, out double[] output)
+        public static void FFT_showing(double[] input, double fs, ref double df2, out double[] output)
         {
             //FFTSpectrum(double[] input, int fs, ref double df, DataUnit dataUnit),各个参数的意义如下：
             //input：输入数据

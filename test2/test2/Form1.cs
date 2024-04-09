@@ -3,6 +3,7 @@ using SeeSharpTools.JY.DSP.FilteringMCR;
 using SeeSharpTools.JY.DSP.Fundamental;
 using SeeSharpTools.JY.DSP.Utility;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -23,7 +24,6 @@ namespace test2
             IIRFilter.Initialize();
             InitializeComponent();
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             led1.Value = true;
@@ -91,8 +91,16 @@ namespace test2
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string filename = textBox1.Text;
-            using (StreamWriter file = new StreamWriter("D:/" + filename + ".csv", true))
+            string filename="保存文件";
+            //打开文件对话框，选择文件保存路径
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "csv文件|*.csv";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                filename = saveFileDialog.FileName;
+            }
+            //将数据存入csv文件
+            using (StreamWriter file = new StreamWriter(filename, true))
             {
                 file.Write("vol\n");
                 for (int j = 0; j < 5000; j++)
@@ -444,6 +452,11 @@ namespace test2
             CalculatorVI.FFT_showing(vol3, fs, ref df2, out FFT_Showvol3);
             this.Update();
             easyChart2.Plot(FFT_Showvol3, 0, df2);
+        }
+
+        private void easyChartX2_AxisViewChanged(object sender, SeeSharpTools.JY.GUI.EasyChartXViewEventArgs e)
+        {
+
         }
     }
     class CalculatorVI

@@ -30,9 +30,13 @@ namespace test2
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            SeeSharpTools.JY.GUI.EasyChartXSeries easyChartXSeries1 = new SeeSharpTools.JY.GUI.EasyChartXSeries();
+            SeeSharpTools.JY.GUI.EasyChartXSeries easyChartXSeries2 = new SeeSharpTools.JY.GUI.EasyChartXSeries();
             SeeSharpTools.JY.GUI.EasyChartXSeries easyChartXSeries3 = new SeeSharpTools.JY.GUI.EasyChartXSeries();
             SeeSharpTools.JY.GUI.EasyChartXSeries easyChartXSeries4 = new SeeSharpTools.JY.GUI.EasyChartXSeries();
-            SeeSharpTools.JY.GUI.EasyChartSeries easyChartSeries2 = new SeeSharpTools.JY.GUI.EasyChartSeries();
+            SeeSharpTools.JY.GUI.EasyChartXSeries easyChartXSeries5 = new SeeSharpTools.JY.GUI.EasyChartXSeries();
+            SeeSharpTools.JY.GUI.EasyChartXSeries easyChartXSeries6 = new SeeSharpTools.JY.GUI.EasyChartXSeries();
+            SeeSharpTools.JY.GUI.EasyChartSeries easyChartSeries1 = new SeeSharpTools.JY.GUI.EasyChartSeries();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.easyChartX1 = new SeeSharpTools.JY.GUI.EasyChartX();
@@ -77,8 +81,6 @@ namespace test2
             this.easyChart2 = new SeeSharpTools.JY.GUI.EasyChart();
             this.button7 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -294,14 +296,32 @@ namespace test2
             this.easyChartX1.LegendFont = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.easyChartX1.LegendForeColor = System.Drawing.Color.Black;
             this.easyChartX1.LegendVisible = true;
-            easyChartXSeries3.Color = System.Drawing.Color.Red;
+            easyChartXSeries1.Color = System.Drawing.Color.Red;
+            easyChartXSeries1.Marker = SeeSharpTools.JY.GUI.EasyChartXSeries.MarkerType.None;
+            easyChartXSeries1.Name = "Series1";
+            easyChartXSeries1.Type = SeeSharpTools.JY.GUI.EasyChartXSeries.LineType.FastLine;
+            easyChartXSeries1.Visible = true;
+            easyChartXSeries1.Width = SeeSharpTools.JY.GUI.EasyChartXSeries.LineWidth.Thin;
+            easyChartXSeries1.XPlotAxis = SeeSharpTools.JY.GUI.EasyChartXAxis.PlotAxis.Primary;
+            easyChartXSeries1.YPlotAxis = SeeSharpTools.JY.GUI.EasyChartXAxis.PlotAxis.Primary;
+            easyChartXSeries2.Color = System.Drawing.Color.Blue;
+            easyChartXSeries2.Marker = SeeSharpTools.JY.GUI.EasyChartXSeries.MarkerType.None;
+            easyChartXSeries2.Name = "Series2";
+            easyChartXSeries2.Type = SeeSharpTools.JY.GUI.EasyChartXSeries.LineType.FastLine;
+            easyChartXSeries2.Visible = true;
+            easyChartXSeries2.Width = SeeSharpTools.JY.GUI.EasyChartXSeries.LineWidth.Thin;
+            easyChartXSeries2.XPlotAxis = SeeSharpTools.JY.GUI.EasyChartXAxis.PlotAxis.Primary;
+            easyChartXSeries2.YPlotAxis = SeeSharpTools.JY.GUI.EasyChartXAxis.PlotAxis.Primary;
+            easyChartXSeries3.Color = System.Drawing.Color.Green;
             easyChartXSeries3.Marker = SeeSharpTools.JY.GUI.EasyChartXSeries.MarkerType.None;
-            easyChartXSeries3.Name = "Series1";
+            easyChartXSeries3.Name = "Series3";
             easyChartXSeries3.Type = SeeSharpTools.JY.GUI.EasyChartXSeries.LineType.FastLine;
             easyChartXSeries3.Visible = true;
             easyChartXSeries3.Width = SeeSharpTools.JY.GUI.EasyChartXSeries.LineWidth.Thin;
             easyChartXSeries3.XPlotAxis = SeeSharpTools.JY.GUI.EasyChartXAxis.PlotAxis.Primary;
             easyChartXSeries3.YPlotAxis = SeeSharpTools.JY.GUI.EasyChartXAxis.PlotAxis.Primary;
+            this.easyChartX1.LineSeries.Add(easyChartXSeries1);
+            this.easyChartX1.LineSeries.Add(easyChartXSeries2);
             this.easyChartX1.LineSeries.Add(easyChartXSeries3);
             this.easyChartX1.Location = new System.Drawing.Point(15, 51);
             this.easyChartX1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
@@ -320,7 +340,7 @@ namespace test2
             this.easyChartX1.Miscellaneous.SplitLayoutRowInterval = 0F;
             this.easyChartX1.Miscellaneous.SplitViewAutoLayout = true;
             this.easyChartX1.Name = "easyChartX1";
-            this.easyChartX1.SeriesCount = 0;
+            this.easyChartX1.SeriesCount = 3;
             this.easyChartX1.Size = new System.Drawing.Size(897, 484);
             this.easyChartX1.SplitView = false;
             this.easyChartX1.TabIndex = 2;
@@ -722,7 +742,25 @@ namespace test2
             easyChartXSeries4.Width = SeeSharpTools.JY.GUI.EasyChartXSeries.LineWidth.Thin;
             easyChartXSeries4.XPlotAxis = SeeSharpTools.JY.GUI.EasyChartXAxis.PlotAxis.Primary;
             easyChartXSeries4.YPlotAxis = SeeSharpTools.JY.GUI.EasyChartXAxis.PlotAxis.Primary;
+            easyChartXSeries5.Color = System.Drawing.Color.Blue;
+            easyChartXSeries5.Marker = SeeSharpTools.JY.GUI.EasyChartXSeries.MarkerType.None;
+            easyChartXSeries5.Name = "Series2";
+            easyChartXSeries5.Type = SeeSharpTools.JY.GUI.EasyChartXSeries.LineType.FastLine;
+            easyChartXSeries5.Visible = true;
+            easyChartXSeries5.Width = SeeSharpTools.JY.GUI.EasyChartXSeries.LineWidth.Thin;
+            easyChartXSeries5.XPlotAxis = SeeSharpTools.JY.GUI.EasyChartXAxis.PlotAxis.Primary;
+            easyChartXSeries5.YPlotAxis = SeeSharpTools.JY.GUI.EasyChartXAxis.PlotAxis.Primary;
+            easyChartXSeries6.Color = System.Drawing.Color.Green;
+            easyChartXSeries6.Marker = SeeSharpTools.JY.GUI.EasyChartXSeries.MarkerType.None;
+            easyChartXSeries6.Name = "Series3";
+            easyChartXSeries6.Type = SeeSharpTools.JY.GUI.EasyChartXSeries.LineType.FastLine;
+            easyChartXSeries6.Visible = true;
+            easyChartXSeries6.Width = SeeSharpTools.JY.GUI.EasyChartXSeries.LineWidth.Thin;
+            easyChartXSeries6.XPlotAxis = SeeSharpTools.JY.GUI.EasyChartXAxis.PlotAxis.Primary;
+            easyChartXSeries6.YPlotAxis = SeeSharpTools.JY.GUI.EasyChartXAxis.PlotAxis.Primary;
             this.easyChartX2.LineSeries.Add(easyChartXSeries4);
+            this.easyChartX2.LineSeries.Add(easyChartXSeries5);
+            this.easyChartX2.LineSeries.Add(easyChartXSeries6);
             this.easyChartX2.Location = new System.Drawing.Point(14, 547);
             this.easyChartX2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.easyChartX2.Miscellaneous.CheckInfinity = false;
@@ -740,7 +778,7 @@ namespace test2
             this.easyChartX2.Miscellaneous.SplitLayoutRowInterval = 0F;
             this.easyChartX2.Miscellaneous.SplitViewAutoLayout = true;
             this.easyChartX2.Name = "easyChartX2";
-            this.easyChartX2.SeriesCount = 0;
+            this.easyChartX2.SeriesCount = 3;
             this.easyChartX2.Size = new System.Drawing.Size(898, 441);
             this.easyChartX2.SplitView = false;
             this.easyChartX2.TabIndex = 31;
@@ -756,6 +794,7 @@ namespace test2
             this.easyChartX2.YCursor.Mode = SeeSharpTools.JY.GUI.EasyChartXCursor.CursorMode.Disabled;
             this.easyChartX2.YCursor.SelectionColor = System.Drawing.Color.LightGray;
             this.easyChartX2.YCursor.Value = double.NaN;
+            this.easyChartX2.AxisViewChanged += new SeeSharpTools.JY.GUI.EasyChartX.ViewEvents(this.easyChartX2_AxisViewChanged);
             // 
             // button6
             // 
@@ -831,35 +870,35 @@ namespace test2
             this.easyChart2.AxisX.InitWithScaleView = false;
             this.easyChart2.AxisX.LabelEnabled = true;
             this.easyChart2.AxisX.LabelFormat = "";
-            this.easyChart2.AxisX.Maximum = 1001D;
-            this.easyChart2.AxisX.Minimum = 0D;
+            this.easyChart2.AxisX.Maximum = double.NaN;
+            this.easyChart2.AxisX.Minimum = double.NaN;
             this.easyChart2.AxisX.Orientation = SeeSharpTools.JY.GUI.EasyChart.TitleOrientation.Auto;
             this.easyChart2.AxisX.Position = SeeSharpTools.JY.GUI.EasyChart.TitlePosition.Center;
             this.easyChart2.AxisX.Title = "";
-            this.easyChart2.AxisX.ViewMaximum = 1001D;
-            this.easyChart2.AxisX.ViewMinimum = 0D;
+            this.easyChart2.AxisX.ViewMaximum = double.NaN;
+            this.easyChart2.AxisX.ViewMinimum = double.NaN;
             this.easyChart2.AxisY.AutoScale = true;
             this.easyChart2.AxisY.InitWithScaleView = false;
             this.easyChart2.AxisY.LabelEnabled = true;
             this.easyChart2.AxisY.LabelFormat = "";
-            this.easyChart2.AxisY.Maximum = 3.5D;
-            this.easyChart2.AxisY.Minimum = 0D;
+            this.easyChart2.AxisY.Maximum = double.NaN;
+            this.easyChart2.AxisY.Minimum = double.NaN;
             this.easyChart2.AxisY.Orientation = SeeSharpTools.JY.GUI.EasyChart.TitleOrientation.Auto;
             this.easyChart2.AxisY.Position = SeeSharpTools.JY.GUI.EasyChart.TitlePosition.Center;
             this.easyChart2.AxisY.Title = "";
-            this.easyChart2.AxisY.ViewMaximum = 3.5D;
-            this.easyChart2.AxisY.ViewMinimum = 0D;
-            this.easyChart2.AxisYMax = 3.5D;
-            this.easyChart2.AxisYMin = 0D;
+            this.easyChart2.AxisY.ViewMaximum = double.NaN;
+            this.easyChart2.AxisY.ViewMinimum = double.NaN;
+            this.easyChart2.AxisYMax = double.NaN;
+            this.easyChart2.AxisYMin = double.NaN;
             this.easyChart2.ChartAreaBackColor = System.Drawing.Color.Empty;
             this.easyChart2.EasyChartBackColor = System.Drawing.Color.White;
             this.easyChart2.GradientStyle = SeeSharpTools.JY.GUI.EasyChart.EasyChartGradientStyle.None;
             this.easyChart2.LegendBackColor = System.Drawing.Color.Transparent;
             this.easyChart2.LegendVisible = true;
-            easyChartSeries2.InterpolationStyle = SeeSharpTools.JY.GUI.EasyChartSeries.Interpolation.FastLine;
-            easyChartSeries2.MarkerType = SeeSharpTools.JY.GUI.EasyChartSeries.PointStyle.None;
-            easyChartSeries2.Width = SeeSharpTools.JY.GUI.EasyChartSeries.LineWidth.Thin;
-            this.easyChart2.LineSeries.Add(easyChartSeries2);
+            easyChartSeries1.InterpolationStyle = SeeSharpTools.JY.GUI.EasyChartSeries.Interpolation.FastLine;
+            easyChartSeries1.MarkerType = SeeSharpTools.JY.GUI.EasyChartSeries.PointStyle.None;
+            easyChartSeries1.Width = SeeSharpTools.JY.GUI.EasyChartSeries.LineWidth.Thin;
+            this.easyChart2.LineSeries.Add(easyChartSeries1);
             this.easyChart2.Location = new System.Drawing.Point(11, 1040);
             this.easyChart2.MajorGridColor = System.Drawing.Color.Black;
             this.easyChart2.MajorGridEnabled = true;
@@ -951,22 +990,6 @@ namespace test2
             this.button9.Text = "电流FFT";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(1072, 186);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(169, 35);
-            this.textBox1.TabIndex = 45;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(984, 196);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(82, 24);
-            this.label15.TabIndex = 46;
-            this.label15.Text = "文件名";
             // 
             // textBox3
             // 
@@ -1536,8 +1559,6 @@ namespace test2
             this.Controls.Add(this.label31);
             this.Controls.Add(this.label32);
             this.Controls.Add(this.textBox13);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.easyChart2);
@@ -1635,8 +1656,6 @@ namespace test2
         private SeeSharpTools.JY.GUI.EasyChart easyChart2;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label17;

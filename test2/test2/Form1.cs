@@ -2,10 +2,12 @@
 using SeeSharpTools.JY.DSP.FilteringMCR;
 using SeeSharpTools.JY.DSP.Fundamental;
 using SeeSharpTools.JY.DSP.Utility;
+using SeeSharpTools.JY.GUI;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 
 
 namespace test2
@@ -13,6 +15,7 @@ namespace test2
     public partial class Form1 : Form
     {
         private JYUSB61902AITask aitask;
+        public static EasyChartX EasyChart2;
         double[,] readvalue = new double[5000, 2];
         double[] FFT_Showvol = new double[10000];
         double[] FFT_Showcur = new double[10000];
@@ -203,13 +206,28 @@ namespace test2
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            CalculatorVI.CalT(vol, cur, out periodLength);
+            if (textBoxfs.Text == "")
+            {
+                MessageBox.Show("请输入采样频率");
+                return;
+            }
+            double fs=double.Parse(textBoxfs.Text);
+            //CalculatorVI.CalT(vol, out periodLength,fs);
+            
             double phi;
+            textBox4.Text = Phase.CalPhaseShift(vol,vol2).ToString("0.###");
+            textBox5.Text = Phase.CalPhaseShift(vol, vol3).ToString("0.###");
             phi = Phase.CalPhaseShift(vol, cur);
             textBoxphi.Text = phi.ToString("0.###");
             textBoxpp.Text = Math.Cos(phi / 180 * 3.1415926).ToString();
-            double T = periodLength/10;
-            textBoxT.Text = T.ToString("0.###"); // 保留三位小数  
+            ToneInfo volinfo;
+
+            volinfo = ToneAnalyzer.SingleToneAnalysis(vol,fs);
+            textBoxT.Text = ((1.0 / volinfo.Frequency) * 1000).ToString("0.###"); // 保留三位小数
+                                                                                  // 
+            periodLength = (int)((1.0 / volinfo.Frequency)*fs);
+
+            textBox1.Text =(volinfo.Amplitude).ToString("0.###");
             textBoxV.Text = CalculatorVI.CalVrms(vol, periodLength).ToString("0.###");
             textBoxI.Text = CalculatorVI.CalIrms(cur, periodLength).ToString("0.###"); // 保留三位小数  
             textBoxP.Text = CalculatorVI.CalP(vol, cur, periodLength).ToString("0.###"); // 保留三位小数  
@@ -218,6 +236,9 @@ namespace test2
             textBoxQ.Text = CalculatorVI.CalQ1().ToString("0.###"); // 保留三位小数
 
             phi = Phase.CalPhaseShift(vol2, cur2);
+            volinfo = ToneAnalyzer.SingleToneAnalysis(vol2, fs);
+            textBoxT2.Text = ((1.0 / volinfo.Frequency) * 1000).ToString("0.###"); // 保留三位小数
+            textBox2.Text = (volinfo.Amplitude).ToString("0.###");
             textBoxang_2 .Text = phi.ToString("0.###");
             textBoxpp_2.Text = Math.Cos(phi / 180 * 3.1415926).ToString();
             textBox13 .Text = CalculatorVI.CalVrms(vol2, periodLength).ToString("0.###");
@@ -228,6 +249,9 @@ namespace test2
             textBoxQ_2.Text = CalculatorVI.CalQ1().ToString("0.###"); // 保留三位小数
 
             phi = Phase.CalPhaseShift(vol3, cur3);
+            volinfo = ToneAnalyzer.SingleToneAnalysis(vol3, fs);
+            textBoxT_3.Text = ((1.0 / volinfo.Frequency) * 1000).ToString("0.###"); // 保留三位小数
+            textBox3.Text = (volinfo.Amplitude).ToString("0.###");
             textBoxang_3.Text = phi.ToString("0.###");
             textBoxpp3.Text = Math.Cos(phi / 180 * 3.1415926).ToString();
             textBoxV3.Text = CalculatorVI.CalVrms(vol3, periodLength).ToString("0.###");
@@ -245,7 +269,7 @@ namespace test2
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filename = openFileDialog.FileName;
-                string[] lines = File.ReadAllLines(filename);
+                string[] lines = System.IO.File.ReadAllLines(filename);
                 /*int cal = 0;
                 for (int i = 12; i < 5012; i++)
                 {
@@ -270,7 +294,7 @@ namespace test2
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filename = openFileDialog.FileName;
-                string[] lines = File.ReadAllLines(filename);
+                string[] lines = System.IO.File.ReadAllLines(filename);
                 /*int cal = 0;
                 for (int i = 12; i < 5012; i++)
                 {
@@ -295,7 +319,7 @@ namespace test2
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filename = openFileDialog.FileName;
-                string[] lines = File.ReadAllLines(filename);
+                string[] lines = System.IO.File.ReadAllLines(filename);
                 /*int cal = 0;
                 for (int i = 12; i < 5012; i++)
                 {
@@ -401,7 +425,31 @@ namespace test2
 
         private void button10_Click(object sender, EventArgs e)
         {
+            if (textBoxfl2.Text == "")
+            {
+                MessageBox.Show("请输入fPass");
+                return;
+            }
 
+            double fpass = double.Parse(textBoxfl2.Text);
+            if (textBoxfh2.Text == "")
+            { 
+                MessageBox.Show("请输入fStop");
+                return;
+            }
+            double fstop = double.Parse(textBoxfh2.Text);
+            if (textBoxfs.Text == "")
+            {
+                MessageBox.Show("请输入采样频率");
+                return;
+            }
+            fs = double.Parse(textBoxfs.Text);
+
+            CalculatorVI.filter_input(vol2, fpass, fstop, fs, out vol);
+            CalculatorVI.filter_input(cur2, fpass, fstop, fs, out cur);
+            this.Update();
+            easyChartX1.Plot(vol2);
+            easyChartX2.Plot(cur2);
         }
         double[] FFT_Showcur2 = new double[10000];
         double[] FFT_Showvol2 = new double[10000];
@@ -455,6 +503,70 @@ namespace test2
         }
 
         private void easyChartX2_AxisViewChanged(object sender, SeeSharpTools.JY.GUI.EasyChartXViewEventArgs e)
+        {
+
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (textBoxfl3.Text == "")
+            {
+                MessageBox.Show("请输入fPass");
+                return;
+            }
+
+            double fpass = double.Parse(textBoxfl3.Text);
+            if (textBoxfh3.Text == "")
+            {
+                MessageBox.Show("请输入fStop");
+                return;
+            }
+            double fstop = double.Parse(textBoxfh3.Text);
+            if (textBoxfs.Text == "")
+            {
+                MessageBox.Show("请输入采样频率");
+                return;
+            }
+            fs = double.Parse(textBoxfs.Text);
+
+            CalculatorVI.filter_input(vol3, fpass, fstop, fs, out vol);
+            CalculatorVI.filter_input(cur3, fpass, fstop, fs, out cur);
+            this.Update();
+            easyChartX1.Plot(vol3);
+            easyChartX2.Plot(cur3);
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label33_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label50_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label51_Click(object sender, EventArgs e)
         {
 
         }
@@ -515,23 +627,13 @@ namespace test2
             double Q = Math.Sqrt(Math.Pow(S, 2) - Math.Pow(P, 2));
             return Q;
         }
-        public static void CalT(double[] vol, double[] cur, out int periodLength)
+        public static void CalT(double[] vol,out int periodLength,double fs)
         {
-            int risePointV = 0;
-            int downpointV = 0;
+            double[] caltv;
+            caltv=IIRFilter.ProcessLowpass(vol, 50, 300, fs);
             // 寻找周期
-            for (int i = 1; i < 5000; i++)
-            {
-                if (risePointV != 0 && vol[i - 1] < 0 && vol[i] >= 0 && i > risePointV + 20)
-                {
-                    downpointV = i;
-                    break;
-                }
-                if (vol[i - 1] < 0 && vol[i] >= 0) risePointV = i;
-
-            }
-            periodLength = downpointV - risePointV;
-            if (periodLength == 0) periodLength = 2500;
+            periodLength = 0;
+            
         }
         public static void filter_input(double[] input, double fPass, double fStop, double fs, out double[] output)
         {

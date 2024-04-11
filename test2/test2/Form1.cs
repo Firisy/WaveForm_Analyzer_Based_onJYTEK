@@ -16,7 +16,7 @@ namespace test2
     {
         private JYUSB61902AITask aitask;
         public static EasyChartX EasyChart2;
-        double[,] readvalue = new double[5000, 2];
+        double[,] readvalue = new double[5000, 5];
         double[] FFT_Showvol = new double[10000];
         double[] FFT_Showcur = new double[10000];
         double df2 = 0;
@@ -35,8 +35,6 @@ namespace test2
             aitask.AddChannel(1, -10, 10, AITerminal.RSE);
             aitask.AddChannel(2, -10, 10, AITerminal.RSE);
             aitask.AddChannel(3, -10, 10, AITerminal.RSE);
-            aitask.AddChannel(4, -10, 10, AITerminal.RSE);
-            aitask.AddChannel(5, -10, 10, AITerminal.RSE);
             aitask.Mode = AIMode.Continuous;
             aitask.SampleRate = 10000;
             //aitask.SamplesToAcquire = 1000;
@@ -58,12 +56,12 @@ namespace test2
             aitask.ReadData(ref readvalue);
             for (int i = 0; i < readvalue.GetLength(0); i++)
             {
-                vol[i] = readvalue[i, 0];
+                vol[i] = readvalue[i, 0]*100;
                 cur[i] = readvalue[i, 1];
-                vol2[i] = readvalue[i, 2];
-                cur2[i] = readvalue[i, 3];
-                vol3[i] = readvalue[i, 4];
-                cur3[i] = readvalue[i, 5];
+                vol2[i] = readvalue[i, 2]*100;
+                //cur2[i] = readvalue[i, 3];
+                vol3[i] = readvalue[i, 3] * 100;
+                //cur3[i] = readvalue[i, 5];
             }
             //IIRFilter.ProcessLowpass(cur, 0.1, 100);
             double[,] displayvol = new double[3, 5000];
@@ -132,7 +130,7 @@ namespace test2
                 file.Write("FFT_cur\n");
                 for (int j = 0; j < FFT_Showcur.Length; j++)
                 {
-                    file.Write(FFT_Showvol[j]);
+                    file.Write(FFT_Showcur[j]);
                     if (j < 4999)
                         file.Write(",");
                 }
@@ -165,7 +163,7 @@ namespace test2
                 file.Write("FFT_cur2\n");
                 for (int j = 0; j < FFT_Showcur2.Length; j++)
                 {
-                    file.Write(FFT_Showvol2[j]);
+                    file.Write(FFT_Showcur2[j]);
                     if (j < 4999)
                         file.Write(",");
                 }
@@ -197,7 +195,7 @@ namespace test2
                 file.Write("FFT_cur3\n");
                 for (int j = 0; j < FFT_Showcur3.Length; j++)
                 {
-                    file.Write(FFT_Showvol3[j]);
+                    file.Write(FFT_Showcur3[j]);
                     if (j < 4999)
                         file.Write(",");
                 }
@@ -211,23 +209,27 @@ namespace test2
                 MessageBox.Show("请输入采样频率");
                 return;
             }
-            double fs=double.Parse(textBoxfs.Text);
+            double fs = double.Parse(textBoxfs.Text);
             //CalculatorVI.CalT(vol, out periodLength,fs);
-            
+            if(vol.Length==0)
+            {
+                MessageBox.Show("请先采集数据");
+                return;
+            }
             double phi;
-            textBox4.Text = Phase.CalPhaseShift(vol,vol2).ToString("0.###");
+            textBox4.Text = Phase.CalPhaseShift(vol, vol2).ToString("0.###");
             textBox5.Text = Phase.CalPhaseShift(vol, vol3).ToString("0.###");
             phi = Phase.CalPhaseShift(vol, cur);
             textBoxphi.Text = phi.ToString("0.###");
             textBoxpp.Text = Math.Cos(phi / 180 * 3.1415926).ToString();
             ToneInfo volinfo;
 
-            volinfo = ToneAnalyzer.SingleToneAnalysis(vol,fs);
+            volinfo = ToneAnalyzer.SingleToneAnalysis(vol, fs);
             textBoxT.Text = ((1.0 / volinfo.Frequency) * 1000).ToString("0.###"); // 保留三位小数
                                                                                   // 
-            periodLength = (int)((1.0 / volinfo.Frequency)*fs);
+            periodLength = (int)((1.0 / volinfo.Frequency) * fs);
 
-            textBox1.Text =(volinfo.Amplitude).ToString("0.###");
+            textBox1.Text = (volinfo.Amplitude).ToString("0.###");
             textBoxV.Text = CalculatorVI.CalVrms(vol, periodLength).ToString("0.###");
             textBoxI.Text = CalculatorVI.CalIrms(cur, periodLength).ToString("0.###"); // 保留三位小数  
             textBoxP.Text = CalculatorVI.CalP(vol, cur, periodLength).ToString("0.###"); // 保留三位小数  
@@ -235,31 +237,35 @@ namespace test2
             textBoxQ2.Text = CalculatorVI.CalQ2(vol, cur, periodLength).ToString("0.###"); // 保留三位小数  
             textBoxQ.Text = CalculatorVI.CalQ1().ToString("0.###"); // 保留三位小数
 
-            phi = Phase.CalPhaseShift(vol2, cur2);
-            volinfo = ToneAnalyzer.SingleToneAnalysis(vol2, fs);
-            textBoxT2.Text = ((1.0 / volinfo.Frequency) * 1000).ToString("0.###"); // 保留三位小数
-            textBox2.Text = (volinfo.Amplitude).ToString("0.###");
-            textBoxang_2 .Text = phi.ToString("0.###");
-            textBoxpp_2.Text = Math.Cos(phi / 180 * 3.1415926).ToString();
-            textBox13 .Text = CalculatorVI.CalVrms(vol2, periodLength).ToString("0.###");
-            textBox12 .Text = CalculatorVI.CalIrms(cur2, periodLength).ToString("0.###"); // 保留三位小数  
-            textBoxP2.Text = CalculatorVI.CalP(vol2, cur2, periodLength).ToString("0.###"); // 保留三位小数  
-            textBoxS2.Text = CalculatorVI.CalVA1().ToString("0.###"); // 保留三位小数  
-            textBoxQ2_2.Text = CalculatorVI.CalQ2(vol2, cur2, periodLength).ToString("0.###"); // 保留三位小数  
-            textBoxQ_2.Text = CalculatorVI.CalQ1().ToString("0.###"); // 保留三位小数
+                //phi = Phase.CalPhaseShift(vol2, cur2);
+                if (vol2[0] == 0) return;
+                volinfo = ToneAnalyzer.SingleToneAnalysis(vol2, fs);
+                textBoxT2.Text = ((1.0 / volinfo.Frequency) * 1000).ToString("0.###"); // 保留三位小数
+                textBox2.Text = (volinfo.Amplitude).ToString("0.###");
+                //textBoxang_2.Text = phi.ToString("0.###");
+                //textBoxpp_2.Text = Math.Cos(phi / 180 * 3.1415926).ToString();
+                textBox13.Text = CalculatorVI.CalVrms(vol2, periodLength).ToString("0.###");
+               // textBox12.Text = CalculatorVI.CalIrms(cur2, periodLength).ToString("0.###"); // 保留三位小数  
+                //textBoxP2.Text = CalculatorVI.CalP(vol2, cur2, periodLength).ToString("0.###"); // 保留三位小数  
+                //textBoxS2.Text = CalculatorVI.CalVA1().ToString("0.###"); // 保留三位小数  
+                //textBoxQ2_2.Text = CalculatorVI.CalQ2(vol2, cur2, periodLength).ToString("0.###"); // 保留三位小数  
+                //textBoxQ_2.Text = CalculatorVI.CalQ1().ToString("0.###"); // 保留三位小数
 
-            phi = Phase.CalPhaseShift(vol3, cur3);
-            volinfo = ToneAnalyzer.SingleToneAnalysis(vol3, fs);
-            textBoxT_3.Text = ((1.0 / volinfo.Frequency) * 1000).ToString("0.###"); // 保留三位小数
-            textBox3.Text = (volinfo.Amplitude).ToString("0.###");
-            textBoxang_3.Text = phi.ToString("0.###");
-            textBoxpp3.Text = Math.Cos(phi / 180 * 3.1415926).ToString();
-            textBoxV3.Text = CalculatorVI.CalVrms(vol3, periodLength).ToString("0.###");
-            textBoxI3.Text = CalculatorVI.CalIrms(cur3, periodLength).ToString("0.###"); // 保留三位小数  
-            textBoxP3.Text = CalculatorVI.CalP(vol3, cur3, periodLength).ToString("0.###"); // 保留三位小数  
-            textBoxS_3.Text = CalculatorVI.CalVA1().ToString("0.###"); // 保留三位小数  
-            textBoxQ2_3.Text = CalculatorVI.CalQ2(vol3, cur3, periodLength).ToString("0.###"); // 保留三位小数  
-            textBoxQ_3.Text = CalculatorVI.CalQ1().ToString("0.###"); // 保留三位小数
+
+                if (vol3[0] == 0) return;
+                //phi = Phase.CalPhaseShift(vol3, cur3);
+                volinfo = ToneAnalyzer.SingleToneAnalysis(vol3, fs);
+                textBoxT_3.Text = ((1.0 / volinfo.Frequency) * 1000).ToString("0.###"); // 保留三位小数
+                textBox3.Text = (volinfo.Amplitude).ToString("0.###");
+                //textBoxang_3.Text = phi.ToString("0.###");
+                //textBoxpp3.Text = Math.Cos(phi / 180 * 3.1415926).ToString();
+                textBoxV3.Text = CalculatorVI.CalVrms(vol3, periodLength).ToString("0.###");
+                //textBoxI3.Text = CalculatorVI.CalIrms(cur3, periodLength).ToString("0.###"); // 保留三位小数  
+                //textBoxP3.Text = CalculatorVI.CalP(vol3, cur3, periodLength).ToString("0.###"); // 保留三位小数  
+                //textBoxS_3.Text = CalculatorVI.CalVA1().ToString("0.###"); // 保留三位小数  
+                //textBoxQ2_3.Text = CalculatorVI.CalQ2(vol3, cur3, periodLength).ToString("0.###"); // 保留三位小数  
+                //textBoxQ_3.Text = CalculatorVI.CalQ1().ToString("0.###"); // 保留三位小数
+
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -412,8 +418,8 @@ namespace test2
             timer1.Enabled = false;
             double[] waveform1 = new double[10000];
             double[] waveform2 = new double[10000];
-            Generation.SineWave(ref waveform1, 311, 0, 50, 10000);  //软件产生正弦波形1
-            Generation.SineWave(ref waveform2, 1, -45, 50, 10000);  //软件产生正弦波形2
+            Generation.SineWave(ref waveform1,10, 0, 50, 1000);  //软件产生正弦波形1
+            Generation.SineWave(ref waveform2, 100, -45, 50, 1000);  //软件产生正弦波形2
             for (i = 0; i < 5000; i++)
             {
                 vol[i] = waveform1[i];
@@ -570,6 +576,11 @@ namespace test2
         {
 
         }
+
+        private void textBoxQ_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
     class CalculatorVI
     {
@@ -627,14 +638,6 @@ namespace test2
             double Q = Math.Sqrt(Math.Pow(S, 2) - Math.Pow(P, 2));
             return Q;
         }
-        public static void CalT(double[] vol,out int periodLength,double fs)
-        {
-            double[] caltv;
-            caltv=IIRFilter.ProcessLowpass(vol, 50, 300, fs);
-            // 寻找周期
-            periodLength = 0;
-            
-        }
         public static void filter_input(double[] input, double fPass, double fStop, double fs, out double[] output)
         {
             output = IIRFilter.ProcessLowpass(input, fPass, fStop, fs);
@@ -642,11 +645,6 @@ namespace test2
         }
         public static void FFT_showing(double[] input, double fs, ref double df2, out double[] output)
         {
-            //FFTSpectrum(double[] input, int fs, ref double df, DataUnit dataUnit),各个参数的意义如下：
-            //input：输入数据
-            //fs：采样率
-            //df：频率分辨率
-            //dataUnit：数据单
             output = JYSpectrum.FFTSpectrum(input, (int)fs, ref df2, JYSpectrum.DataUnit.DBV);
         }
     }

@@ -23,7 +23,7 @@ namespace test2
         int periodLength;
         public Form1()
         {
-            MessageBox.Show("请耐心等待程序启动。。。");
+            MessageBox.Show("请耐心等待程序启动。。。按确定以继续程序（加载图标没有制作，之恩那个这样提醒你哦，记得关掉这个窗口）");
             IIRFilter.Initialize();
             InitializeComponent();
         }
@@ -289,62 +289,22 @@ namespace test2
                 int maxLength = Math.Min(5000, Math.Min(vol.Length, cur.Length));
                 for (int i = 0; i < maxLength; i++)
                 {
-                    vol[i] = Convert.ToDouble(values[i])*100;
+                    vol[i] = Convert.ToDouble(values[i]);
                 }
                 values = lines[3].Split(',');
                 for (int i = 0; i < maxLength; i++)
                 {
                     cur[i] = Convert.ToDouble(values[i]);
                 }
-            }
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string filename = openFileDialog.FileName;
-                string[] lines = System.IO.File.ReadAllLines(filename);
-                /*int cal = 0;
-                for (int i = 12; i < 5012; i++)
-                {
-                    string[] values = lines[i].Split(',');
-                    vol[cal] = Convert.ToDouble(values[1]) * 100;
-                    cur[cal] = Convert.ToDouble(values[2]);
-                    cal++;
-                }*/
-                //读取csv文件，将数据存入vol和cur数组中，数据的格式为：第二行为电压，第四行为电流
-                string[] values = lines[1].Split(',');//Split方法将字符串分割成字符串数组
-                int maxLength = Math.Min(5000, Math.Min(vol.Length, cur.Length));
+                values = lines[9].Split(',');
                 for (int i = 0; i < maxLength; i++)
                 {
-                    vol2[i] = Convert.ToDouble(values[i]) * 100;
+                    vol2[i] = Convert.ToDouble(values[i]);
                 }
-                values = lines[3].Split(',');
+                values = lines[17].Split(',');
                 for (int i = 0; i < maxLength; i++)
                 {
-                    cur2[i] = Convert.ToDouble(values[i]);
-                }
-            }
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string filename = openFileDialog.FileName;
-                string[] lines = System.IO.File.ReadAllLines(filename);
-                /*int cal = 0;
-                for (int i = 12; i < 5012; i++)
-                {
-                    string[] values = lines[i].Split(',');
-                    vol[cal] = Convert.ToDouble(values[1]) * 100;
-                    cur[cal] = Convert.ToDouble(values[2]);
-                    cal++;
-                }*/
-                //读取csv文件，将数据存入vol和cur数组中，数据的格式为：第二行为电压，第四行为电流
-                string[] values = lines[1].Split(',');//Split方法将字符串分割成字符串数组
-                int maxLength = Math.Min(5000, Math.Min(vol.Length, cur.Length));
-                for (int i = 0; i < maxLength; i++)
-                {
-                    vol3[i] = Convert.ToDouble(values[i]) * 100;
-                }
-                values = lines[3].Split(',');
-                for (int i = 0; i < maxLength; i++)
-                {
-                    cur3[i] = Convert.ToDouble(values[i]);
+                    vol3[i] = Convert.ToDouble(values[i]);
                 }
             }
             double[,] displayvol = new double[3, 5000];
@@ -418,8 +378,8 @@ namespace test2
             timer1.Enabled = false;
             double[] waveform1 = new double[10000];
             double[] waveform2 = new double[10000];
-            Generation.SineWave(ref waveform1,10, 0, 50, 1000);  //软件产生正弦波形1
-            Generation.SineWave(ref waveform2, 100, -45, 50, 1000);  //软件产生正弦波形2
+            Generation.SineWave(ref waveform1,10, 0, 50, 10000);  //软件产生正弦波形1
+            Generation.SineWave(ref waveform2, 100, -45, 50, 10000);  //软件产生正弦波形2
             for (i = 0; i < 5000; i++)
             {
                 vol[i] = waveform1[i];
